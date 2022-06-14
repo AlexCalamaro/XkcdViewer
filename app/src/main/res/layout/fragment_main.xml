@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageButton
+        android:id="@+id/button_search"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/ic_baseline_search_24"
+        android:background="@drawable/rectangle_black_border_thin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="Search button" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/title_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="start|center_vertical"
+        app:layout_constraintTop_toTopOf="@id/button_search"
+        app:layout_constraintBottom_toBottomOf="@id/button_search"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/button_search">
+        <TextView
+            android:id="@+id/xkcd_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:ellipsize="end"
+            android:layout_margin="8dp"
+            android:textColor="@color/colorForeground" />
+
+        <TextView
+            android:id="@+id/xkcd_number"
+            android:textColor="@color/colorForeground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginLeft="8dp"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <com.ortiz.touchview.TouchImageView
+        android:id="@+id/xkcd_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/image_not_loaded_cd"
+        app:layout_constraintTop_toBottomOf="@id/title_bar"
+        app:layout_constraintBottom_toTopOf="@id/xkcd_alt_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/xkcd_alt_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textColor="@color/colorForeground"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@id/button_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/button_container"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_previous"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="&lt;"
+            android:background="@drawable/rectangle_black_border_thin"
+            android:textColor="@color/colorForeground"
+            android:layout_weight=".5"
+            android:layout_margin="4dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_random"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Random"
+            android:background="@drawable/rectangle_black_border_thin"
+            android:textColor="@color/colorForeground"
+            android:layout_weight="1"
+            android:layout_margin="4dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_latest"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Latest"
+            android:background="@drawable/rectangle_black_border_thin"
+            android:textColor="@color/colorForeground"
+            android:layout_weight="1"
+            android:layout_margin="4dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="&gt;"
+            android:background="@drawable/rectangle_black_border_thin"
+            android:textColor="@color/colorForeground"
+            android:layout_weight=".5"
+            android:layout_margin="4dp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

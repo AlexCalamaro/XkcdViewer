@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">XKCD</string>
+    <string name="image_not_loaded_cd">Image not loaded</string>
+    <string name="app_header">XKCD Viewer</string>
+</resources>
