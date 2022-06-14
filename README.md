@@ -1,5 +1,5 @@
 # XkcdViewer
-Simple app to view the XKCD webcomic. All artwork is courtesy of Randall Munroe who generously allows use of his work: [xkcd.com](https://xkcd.com/)
+Simple Android app to view the XKCD webcomic. All artwork is courtesy of Randall Munroe who generously allows use of his work: [xkcd.com](https://xkcd.com/)
 
 ## Requirements
 There are two missing values that must be added to your string resources file.
