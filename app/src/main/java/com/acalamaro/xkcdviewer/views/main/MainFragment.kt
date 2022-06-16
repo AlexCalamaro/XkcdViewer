@@ -49,6 +49,8 @@ class MainFragment : Fragment(), MainContract.View {
         bindButtons()
         presenter.onCreate(savedInstanceState)
 
+        // searchViewModel provides data when a search result is selected in SearchFragment.
+        // This is a lifecycle-safe way to communicate between fragments.
         searchViewModel.searchResult.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             SearchParseUtils.getComicNumberFromUrl(it.link)?.let { number ->
                 presenter.loadSpecific(number)
@@ -71,6 +73,11 @@ class MainFragment : Fragment(), MainContract.View {
 
     override fun setImage(image: String) {
         context?.let { ctx ->
+
+            /**
+             * If night mode is enabled, apply a transformation to the image,
+             * converting it to greyscale and then inverting it. See [ImageUtils]
+             */
             if(ImageUtils.isNightModeEnabled(ctx)) {
                 picasso.load(image)
                     .transform(ImageUtils.Companion.InversionTransformation())

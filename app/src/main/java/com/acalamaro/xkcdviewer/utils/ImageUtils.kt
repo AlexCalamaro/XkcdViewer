@@ -11,6 +11,11 @@ import com.squareup.picasso.Transformation
 class ImageUtils {
     companion object {
 
+        /**
+         * Implementation of Transformation interface in Picasso
+         * Allows arbitrary modification of image after loading
+         * but before displaying to a view
+         */
         class InversionTransformation : Transformation {
             override fun transform(source: Bitmap?): Bitmap {
                 val result = invertBitmap(source!!)
@@ -22,6 +27,7 @@ class ImageUtils {
             }
         }
 
+        // Determine if Night/Dark mode is enabled on device
         fun isNightModeEnabled(context: Context) : Boolean {
             return when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
                 Configuration.UI_MODE_NIGHT_YES -> true
@@ -29,6 +35,7 @@ class ImageUtils {
             }
         }
 
+        // Invert the contents of an ImageView if night mode is enabled
         fun invertImageViewIfNightMode(imageView: AppCompatImageView) {
             if(isNightModeEnabled(imageView.context)) {
                 val drawable = imageView.drawable
@@ -38,6 +45,12 @@ class ImageUtils {
             }
         }
 
+        /**
+         * @param src The bitmap to invert
+         * @return inverted bitmap
+         * This method converts a source bitmap to greyscale and then inverts it,
+         * providing eye-friendly comics for dark mode
+         */
         private fun invertBitmap(src : Bitmap) : Bitmap{
             val height = src.height
             val width = src.width
@@ -64,7 +77,5 @@ class ImageUtils {
             canvas.drawBitmap(src, 0f, 0f, paint)
             return bitmap
         }
-
-
     }
 }

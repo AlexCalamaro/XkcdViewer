@@ -49,6 +49,8 @@ class MainPresenter @Inject constructor(
     }
 
     override fun loadSpecific(selected: Int) {
+        // If newest is null, state is weird and we don't know the range of valid values
+        //  so just reload the newest again even if that might confuse the user
         if(newestXkcd?.num == null) {
             loadXkcd(null)
         } else if (selected in (1..newestXkcd!!.num)) {
@@ -58,7 +60,7 @@ class MainPresenter @Inject constructor(
         }
     }
 
-    // Puts instance data into the bundle provided by MainActivity
+    // Puts instance data into the bundle provided by View
     override fun requestInstanceBundle(bundle: Bundle) {
         bundle.putParcelable(bundle_tag_current, currentXkcd)
         bundle.putParcelable(bundle_tag_newest, newestXkcd)
