@@ -23,4 +23,8 @@ class SettingsPresenter(
     override fun onDarkModeImagesToggled() {
         TODO("Not yet implemented")
     }
+
+    private fun loadSettingsFromModel() {
+
+    }
 }
