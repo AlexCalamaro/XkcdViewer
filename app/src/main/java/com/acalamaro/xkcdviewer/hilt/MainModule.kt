@@ -6,16 +6,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.acalamaro.xkcdviewer.R
 import com.acalamaro.xkcdviewer.data.GoogleSearchApiDataSource
 import com.acalamaro.xkcdviewer.data.XkcdApiDataSource
-import com.acalamaro.xkcdviewer.data.remoteobjects.GoogleSearchBaseObject
-import com.acalamaro.xkcdviewer.views.main.*
-import com.acalamaro.xkcdviewer.views.search.*
+import com.acalamaro.xkcdviewer.views.main.MainActivity
+import com.acalamaro.xkcdviewer.views.main.MainContract
+import com.acalamaro.xkcdviewer.views.main.MainFragment
+import com.acalamaro.xkcdviewer.views.main.MainModel
+import com.acalamaro.xkcdviewer.views.main.MainPresenter
+import com.acalamaro.xkcdviewer.views.search.SearchContract
+import com.acalamaro.xkcdviewer.views.search.SearchFragment
+import com.acalamaro.xkcdviewer.views.search.SearchModel
+import com.acalamaro.xkcdviewer.views.search.SearchPresenter
 import com.squareup.picasso.Picasso
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 

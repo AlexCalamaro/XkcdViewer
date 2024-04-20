@@ -2,10 +2,13 @@ package com.acalamaro.xkcdviewer.views.main
 
 import android.os.Bundle
 import com.acalamaro.xkcdviewer.data.remoteobjects.XkcdResponse
-import kotlinx.coroutines.*
-import retrofit2.Response
+import com.acalamaro.xkcdviewer.data.remoteobjects.XkcdResult
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class MainPresenter @Inject constructor(
     private var view: MainContract.View?,
@@ -95,9 +98,18 @@ class MainPresenter @Inject constructor(
     private fun loadXkcd(number : Int?) {
         job = CoroutineScope(Dispatchers.IO).launch {
             model?.loadXkcd(number)?.let {
-                withContext(Dispatchers.Main) {
-                    updateStateVariables(it)
-                    applyResponseToView(it)
+                when(it) {
+                    is XkcdResult.Success -> {
+                        withContext(Dispatchers.Main) {
+                            updateStateVariables(it.data)
+                            applyResponseToView(it.data)
+                        }
+                    }
+                    is XkcdResult.Error -> {
+                        withContext(Dispatchers.Main) {
+                            view?.showErrorDialog(it.error)
+                        }
+                    }
                 }
             }
         }

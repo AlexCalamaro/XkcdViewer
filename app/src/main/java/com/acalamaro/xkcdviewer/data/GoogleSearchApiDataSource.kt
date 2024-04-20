@@ -1,5 +1,7 @@
 package com.acalamaro.xkcdviewer.data
 
+import com.acalamaro.xkcdviewer.data.remoteobjects.GoogleSearchResponse
+import com.acalamaro.xkcdviewer.data.remoteobjects.GoogleSearchResult
 import javax.inject.Singleton
 
 @Singleton
@@ -9,5 +11,16 @@ class GoogleSearchApiDataSource (private val api : GoogleSearchApi) {
         query : String,
         apiKey : String,
         start : Int
-    ) = api.getSearchResults(searchInstance, query, apiKey, start)
+    ): GoogleSearchResult<GoogleSearchResponse> {
+        return try {
+            val result = api.getSearchResults(searchInstance, query, apiKey, start)
+            if(result.isSuccessful) {
+                GoogleSearchResult.Success(result.body()!!)
+            } else {
+                GoogleSearchResult.Error(result.message())
+            }
+        } catch (e: Exception) {
+            return GoogleSearchResult.Error(e.message ?: "Unknown error")
+        }
+    }
 }

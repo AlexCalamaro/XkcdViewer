@@ -1,11 +1,12 @@
 package com.acalamaro.xkcdviewer.views.search
 
-import android.os.Handler
-import android.os.Looper
-import com.acalamaro.xkcdviewer.data.remoteobjects.GoogleSearchBaseObject
-import com.acalamaro.xkcdviewer.views.main.MainFragment
-import com.acalamaro.xkcdviewer.views.main.MainPresenter
-import kotlinx.coroutines.*
+import com.acalamaro.xkcdviewer.data.remoteobjects.GoogleSearchResponse
+import com.acalamaro.xkcdviewer.data.remoteobjects.GoogleSearchResult
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SearchPresenter @Inject constructor(
@@ -13,7 +14,7 @@ class SearchPresenter @Inject constructor(
     private var model: SearchContract.Model?
 ) : SearchContract.Presenter {
 
-    var currentSearchResults : GoogleSearchBaseObject? = null
+    private var currentSearchResults : GoogleSearchResponse? = null
     private var job : Job? = null
 
     override fun onViewCreated() {
@@ -49,12 +50,22 @@ class SearchPresenter @Inject constructor(
             val result = withContext(Dispatchers.IO) {
                 model?.performSearch(query, start)
             }
-            currentSearchResults = result
-            updateView(result)
+            when(result) {
+                is GoogleSearchResult.Success -> {
+                    currentSearchResults = result.data
+                    updateView(result.data)
+                }
+                is GoogleSearchResult.Error -> {
+                    view?.showErrorDialog(result.message)
+                }
+                else -> {
+                    view?.showErrorDialog("Unknown error")
+                }
+            }
         }
     }
 
-    private fun updateView(results : GoogleSearchBaseObject?) {
+    private fun updateView(results : GoogleSearchResponse?) {
         results?.let {
             view?.showNextButton(it.queries?.nextPage != null)
             view?.showPrevButton(it.queries?.previousPage != null)

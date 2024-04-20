@@ -2,7 +2,7 @@ package com.acalamaro.xkcdviewer.views.main
 
 import android.os.Bundle
 import com.acalamaro.xkcdviewer.data.remoteobjects.XkcdResponse
-import retrofit2.Response
+import com.acalamaro.xkcdviewer.data.remoteobjects.XkcdResult
 
 interface MainContract {
     interface View {
@@ -16,6 +16,9 @@ interface MainContract {
         fun setAltText(altText: String)
         // Show a toast via containing activity (unused)
         fun showToast(toastText : String)
+
+        // Show error dialog
+        fun showErrorDialog(error: String)
     }
 
     interface Presenter {
@@ -38,6 +41,6 @@ interface MainContract {
     }
 
     interface Model {
-        suspend fun loadXkcd(number: Int?) : XkcdResponse?
+        suspend fun loadXkcd(number: Int?) : XkcdResult<XkcdResponse>
     }
 }

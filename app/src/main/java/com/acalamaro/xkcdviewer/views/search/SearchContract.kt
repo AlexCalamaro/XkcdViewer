@@ -1,13 +1,15 @@
 package com.acalamaro.xkcdviewer.views.search
 
-import com.acalamaro.xkcdviewer.data.remoteobjects.GoogleSearchBaseObject
+import com.acalamaro.xkcdviewer.data.remoteobjects.GoogleSearchResponse
+import com.acalamaro.xkcdviewer.data.remoteobjects.GoogleSearchResult
 
 interface SearchContract {
 
     interface View {
-        fun displaySearchResults(results : GoogleSearchBaseObject)
+        fun displaySearchResults(results : GoogleSearchResponse)
         fun showPrevButton(visible : Boolean)
         fun showNextButton(visible : Boolean)
+        fun showErrorDialog(message : String)
     }
 
     interface Presenter{
@@ -19,6 +21,6 @@ interface SearchContract {
     }
 
     interface Model {
-        suspend fun performSearch(query : String, start: Int) : GoogleSearchBaseObject
+        suspend fun performSearch(query : String, start: Int) : GoogleSearchResult<GoogleSearchResponse>
     }
 }

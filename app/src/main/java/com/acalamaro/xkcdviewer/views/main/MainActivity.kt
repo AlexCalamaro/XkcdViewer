@@ -8,7 +8,6 @@ import com.acalamaro.xkcdviewer.databinding.ActivityMainBinding
 import com.acalamaro.xkcdviewer.views.search.SearchFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(){

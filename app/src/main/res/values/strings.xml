@@ -2,4 +2,11 @@
     <string name="app_name">xkcd</string>
     <string name="image_not_loaded_cd">Image not loaded</string>
     <string name="app_header">XKCD Viewer</string>
+    <string name="please_donate_text">This app is completely free, however the search feature does cost money to operate. If you like the app and wish to support it, please consider donating below. Doing so unlocks a special app icon color :)</string>
+    <string name="about_app_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras at magna eu ante dapibus dignissim. Donec vel malesuada ipsum. In ornare lacus at odio convallis, vel ultrices ante molestie. Pellentesque sagittis leo sed interdum eleifend. Mauris rhoncus neque elit, vel fermentum dui suscipit nec. Quisque porta hendrerit tellus, ac rhoncus mauris suscipit eu. Etiam metus ipsum, blandit sit amet purus quis, tincidunt blandit urna. </string>
+
+    <!-- Error strings -->
+    <string name="error_title">Something went wrong :(</string>
+    <string name="error_body">An error occurred fetching that content. Please try again later.</string>
+    <string name="error_button_text">OK</string>
 </resources>

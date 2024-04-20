@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.acalamaro.xkcdviewer.R
 import com.acalamaro.xkcdviewer.data.GoogleSearchApiDataSource
-import com.acalamaro.xkcdviewer.data.XkcdApiDataSource
-import com.acalamaro.xkcdviewer.data.remoteobjects.GoogleSearchBaseObject
 import com.acalamaro.xkcdviewer.data.remoteobjects.GoogleSearchItems
+import com.acalamaro.xkcdviewer.data.remoteobjects.GoogleSearchResponse
 import com.acalamaro.xkcdviewer.databinding.FragmentSearchBinding
+import com.acalamaro.xkcdviewer.extensions.showErrorDialog
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -46,7 +46,7 @@ class SearchFragment: Fragment(), SearchContract.View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         presenter = SearchPresenter(this, SearchModel(
             googleApiDataSource,
-            context!!.getString(R.string.google_api_key), context!!.getString(R.string.search_instance_identifier)))
+            requireContext().getString(R.string.google_api_key), requireContext().getString(R.string.search_instance_identifier)))
 
         return binding.root
     }
@@ -57,7 +57,7 @@ class SearchFragment: Fragment(), SearchContract.View {
         recycler = binding.searchRecycler
         recycler.layoutManager = layoutManager
         adapter = SearchAdapter(
-            GoogleSearchBaseObject(null, null, null, null),
+            GoogleSearchResponse(null, null, null, null),
             picasso,
             object: SearchAdapter.SearchItemClickListener {
             override fun onItemClicked(data: GoogleSearchItems) {
@@ -85,7 +85,7 @@ class SearchFragment: Fragment(), SearchContract.View {
 
     @SuppressLint("NotifyDataSetChanged")
     // Only 10 results returned at a time and they are paged so notifyDatasetChanged() is ok
-    override fun displaySearchResults(results: GoogleSearchBaseObject) {
+    override fun displaySearchResults(results: GoogleSearchResponse) {
         adapter.data = results
         adapter.notifyDataSetChanged()
     }
@@ -104,6 +104,13 @@ class SearchFragment: Fragment(), SearchContract.View {
         } else {
             binding.buttonSearchPageNext.visibility = View.GONE
         }
+    }
+
+    override fun showErrorDialog(message: String) {
+        this.showErrorDialog(
+            title = getString(R.string.error_title),
+            message = getString(R.string.error_body)
+        )
     }
 
     private fun configureButtons() {

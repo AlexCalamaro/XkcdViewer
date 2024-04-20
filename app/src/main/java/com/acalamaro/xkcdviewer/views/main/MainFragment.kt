@@ -7,19 +7,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.acalamaro.xkcdviewer.data.GoogleSearchApiDataSource
+import com.acalamaro.xkcdviewer.R
 import com.acalamaro.xkcdviewer.data.XkcdApiDataSource
-import com.acalamaro.xkcdviewer.data.remoteobjects.GoogleSearchBaseObject
 import com.acalamaro.xkcdviewer.databinding.FragmentMainBinding
+import com.acalamaro.xkcdviewer.extensions.showErrorDialog
 import com.acalamaro.xkcdviewer.utils.ImageUtils
 import com.acalamaro.xkcdviewer.utils.SearchParseUtils
-import com.acalamaro.xkcdviewer.views.search.SearchFragment
 import com.acalamaro.xkcdviewer.views.search.SearchResultViewModel
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @AndroidEntryPoint
 class MainFragment : Fragment(), MainContract.View {
@@ -95,6 +92,13 @@ class MainFragment : Fragment(), MainContract.View {
 
     override fun showToast(toastText: String) {
         Toast.makeText(activity, toastText, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showErrorDialog(error: String) {
+        this.showErrorDialog(
+            title = getString(R.string.error_title),
+            message = getString(R.string.error_body),
+        )
     }
 
     private fun bindButtons() {

@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ImageButton
         android:id="@+id/button_search"
@@ -15,16 +16,27 @@
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="Search button" />
 
+    <ImageButton
+        android:id="@+id/button_settings"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/icon_settings"
+        android:layout_margin="8dp"
+        android:background="@drawable/rectangle_black_border_thin"
+        app:layout_constraintEnd_toStartOf="@id/button_search"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="Donation button" />
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/title_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
         android:orientation="horizontal"
         android:gravity="start|center_vertical"
-        app:layout_constraintTop_toTopOf="@id/button_search"
-        app:layout_constraintBottom_toBottomOf="@id/button_search"
+        app:layout_constraintTop_toTopOf="@id/button_settings"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/button_search">
+        app:layout_constraintEnd_toStartOf="@id/button_settings">
         <TextView
             android:id="@+id/xkcd_title"
             android:layout_width="wrap_content"
@@ -33,7 +45,8 @@
             android:textStyle="bold"
             android:ellipsize="end"
             android:layout_margin="8dp"
-            android:textColor="@color/colorForeground" />
+            android:textColor="@color/colorForeground"
+            tools:text="LOREM IPSUM RANDOM "/>
 
         <TextView
             android:id="@+id/xkcd_number"

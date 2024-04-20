@@ -4,6 +4,11 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
+sealed class XkcdResult<out T> {
+    data class Success<out T>(val data: XkcdResponse) : XkcdResult<T>()
+    data class Error(val error: String) : XkcdResult<Nothing>()
+}
+
 @Parcelize
 data class XkcdResponse (
     val month : Int,

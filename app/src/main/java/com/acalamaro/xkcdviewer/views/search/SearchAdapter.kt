@@ -5,15 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.acalamaro.xkcdviewer.R
-import com.acalamaro.xkcdviewer.data.remoteobjects.GoogleSearchBaseObject
 import com.acalamaro.xkcdviewer.data.remoteobjects.GoogleSearchItems
+import com.acalamaro.xkcdviewer.data.remoteobjects.GoogleSearchResponse
 import com.squareup.picasso.Picasso
-import javax.inject.Inject
 
-class SearchAdapter(var data: GoogleSearchBaseObject, val picasso: Picasso, val listener: SearchItemClickListener): RecyclerView.Adapter<SearchAdapter.ViewHolder>(){
+class SearchAdapter(var data: GoogleSearchResponse, val picasso: Picasso, val listener: SearchItemClickListener): RecyclerView.Adapter<SearchAdapter.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val thumbnail = view.findViewById<AppCompatImageView>(R.id.search_row_thumbnail)

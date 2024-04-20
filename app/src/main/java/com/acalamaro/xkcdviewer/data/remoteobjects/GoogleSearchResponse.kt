@@ -2,7 +2,12 @@ package com.acalamaro.xkcdviewer.data.remoteobjects
 
 import com.google.gson.annotations.SerializedName
 
-data class GoogleSearchBaseObject(
+sealed class GoogleSearchResult<out T> {
+    data class Success<out T>(val data: GoogleSearchResponse) : GoogleSearchResult<T>()
+    data class Error(val message: String): GoogleSearchResult<Nothing>()
+}
+
+data class GoogleSearchResponse(
     val kind: String?,
     val searchInformation: GoogleSearchInformation?,
     val items: List<GoogleSearchItems>?,
