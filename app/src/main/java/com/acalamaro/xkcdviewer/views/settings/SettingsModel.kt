@@ -1,32 +1,22 @@
 package com.acalamaro.xkcdviewer.views.settings
 
-import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.booleanPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
+import com.acalamaro.xkcdviewer.data.SettingsDataSource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import java.util.prefs.Preferences
+import javax.inject.Inject
 
-internal class SettingsModel(val context: Context): SettingsContract.Model {
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = SettingsConstants.SETTINGS_STORE_NAME)
-    private val notificationToggle = booleanPreferencesKey(SettingsConstants.NOTIFICATIONS_TOGGLE)
-    val darkModeImagesToggle = booleanPreferencesKey(SettingsConstants.DARK_MODE_IMAGES_TOGGLE)
-
-
-    // Preferences setters and getters
-    fun getNotificationsToggleState(): Boolean {
-        val stateFlow: Flow<Boolean> = context.dataStore.data.map {
-            it[notificationToggle] ?: false
-        }
+class SettingsModel @Inject constructor(
+    private var dataSource: SettingsDataSource
+) {
+    fun getNotificationToggleState(): Flow<Boolean> {
+        return dataSource.getNotificationsToggleState()
     }
-    fun setNotificationsToggleState(state: Boolean) {
-
+    fun getDarkModeToggleState(): Flow<Boolean> {
+        return dataSource.getDarkModeToggleState()
     }
-    fun getDarkModeImagesToggleState(): Boolean {
-        return false
+    suspend fun setNotificationsToggleState(state: Boolean) {
+        dataSource.setNotificationsToggleState(state)
     }
-    fun setDarkModeImagesToggleState(state: Boolean) {
-
+    suspend fun setDarkModeToggleState(state: Boolean) {
+        dataSource.setDarkModeToggleState(state)
     }
 }

@@ -1,12 +1,15 @@
 package com.acalamaro.xkcdviewer.hilt
 
+import android.content.Context
 import com.acalamaro.xkcdviewer.data.GoogleSearchApi
 import com.acalamaro.xkcdviewer.data.GoogleSearchApiDataSource
+import com.acalamaro.xkcdviewer.data.SettingsDataSource
 import com.acalamaro.xkcdviewer.data.XkcdApi
 import com.acalamaro.xkcdviewer.data.XkcdApiDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -70,5 +73,9 @@ object ApiModule {
     @Singleton
     @Provides
     fun provideGoogleApiDataSource(api : GoogleSearchApi) : GoogleSearchApiDataSource = GoogleSearchApiDataSource(api)
+
+    @Singleton
+    @Provides
+    fun provideSettingsDataSource(@ApplicationContext context: Context) : SettingsDataSource = SettingsDataSource(context)
 
 }

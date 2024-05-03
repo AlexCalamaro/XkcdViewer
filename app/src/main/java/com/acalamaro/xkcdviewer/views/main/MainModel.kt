@@ -7,14 +7,12 @@ import javax.inject.Inject
 
 class MainModel @Inject constructor(
     private val xkcdApiDataSource: XkcdApiDataSource
-) : MainContract.Model {
-
-    override suspend fun loadXkcd(number : Int?) : XkcdResult<XkcdResponse> {
+) {
+    suspend fun loadXkcd(number : Int?) : XkcdResult<XkcdResponse> {
         return if(number == null) {
             xkcdApiDataSource.getLatestXkcd()
         } else {
             xkcdApiDataSource.getXkcdWithNumber(number)
         }
-
     }
 }

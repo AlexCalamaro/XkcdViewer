@@ -5,22 +5,22 @@ import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.acalamaro.xkcdviewer.R
 import com.acalamaro.xkcdviewer.data.GoogleSearchApiDataSource
+import com.acalamaro.xkcdviewer.data.SettingsDataSource
 import com.acalamaro.xkcdviewer.data.XkcdApiDataSource
 import com.acalamaro.xkcdviewer.views.main.MainActivity
-import com.acalamaro.xkcdviewer.views.main.MainContract
 import com.acalamaro.xkcdviewer.views.main.MainFragment
 import com.acalamaro.xkcdviewer.views.main.MainModel
-import com.acalamaro.xkcdviewer.views.main.MainPresenter
-import com.acalamaro.xkcdviewer.views.search.SearchContract
 import com.acalamaro.xkcdviewer.views.search.SearchFragment
 import com.acalamaro.xkcdviewer.views.search.SearchModel
 import com.acalamaro.xkcdviewer.views.search.SearchPresenter
+import com.acalamaro.xkcdviewer.views.settings.SettingsFragment
+import com.acalamaro.xkcdviewer.views.settings.SettingsModel
 import com.squareup.picasso.Picasso
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -32,6 +32,12 @@ object MainActivityModule {
     fun provideActivity(activity: Activity) : MainActivity {
         return activity as MainActivity
     }
+
+    @Provides
+    @Singleton
+    fun provideApplicationContext(@ApplicationContext context: Context): Context {
+        return context
+    }
 }
 
 @InstallIn(SingletonComponent::class)
@@ -40,12 +46,6 @@ class FragmentsModule {
     @Provides
     fun provideMainFragment() : MainFragment {
         return MainFragment()
-    }
-
-    @Provides
-    @Singleton
-    fun provideMainPresenter(view : MainFragment, model : MainModel) : MainPresenter {
-        return MainPresenter(view, model)
     }
 
     @Provides
@@ -60,7 +60,6 @@ class FragmentsModule {
     }
 
     @Provides
-    @Singleton
     fun provideSearchPresenter(view : SearchFragment, model: SearchModel) : SearchPresenter {
         return SearchPresenter(view, model)
     }
@@ -72,9 +71,19 @@ class FragmentsModule {
     }
 
     @Provides
-    @Singleton
     fun provideSearchRecyclerLM(fragment : SearchFragment) : LinearLayoutManager {
         return LinearLayoutManager(fragment.context)
+    }
+
+    @Provides
+    fun provideSettingsFragment(): SettingsFragment {
+        return SettingsFragment()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSettingsModel(dataSource: SettingsDataSource) : SettingsModel {
+        return SettingsModel(dataSource)
     }
 
     @Provides
@@ -82,31 +91,4 @@ class FragmentsModule {
     fun providePicasso() : Picasso {
         return Picasso.get()
     }
-}
-
-@InstallIn(ActivityComponent::class)
-@Module
-abstract class SearchModule {
-    @Binds
-    abstract fun bindSearchFragment(fragment: SearchFragment): SearchContract.View
-
-    @Binds
-    abstract fun bindSearchPresenter(presenter : SearchPresenter) : SearchContract.Presenter
-
-    @Binds
-    abstract fun bindSearchModel(model : SearchModel) : SearchContract.Model
-}
-
-
-@InstallIn(ActivityComponent::class)
-@Module
-abstract class MainModule {
-    @Binds
-    abstract fun bindMainFragment(activity: MainFragment): MainContract.View
-
-    @Binds
-    abstract fun bindMainPresenter(presenter : MainPresenter) : MainContract.Presenter
-
-    @Binds
-    abstract fun bindMainModel(model : MainModel) : MainContract.Model
 }

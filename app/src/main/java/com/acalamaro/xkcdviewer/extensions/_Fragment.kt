@@ -3,7 +3,6 @@ package com.acalamaro.xkcdviewer.extensions
 import android.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.acalamaro.xkcdviewer.databinding.DialogErrorBinding
-import com.acalamaro.xkcdviewer.utils.ImageUtils
 
 internal fun Fragment.showErrorDialog(
     title: String,

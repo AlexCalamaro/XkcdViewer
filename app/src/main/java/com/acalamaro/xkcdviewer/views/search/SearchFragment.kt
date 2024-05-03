@@ -10,6 +10,8 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.acalamaro.xkcdviewer.R
@@ -37,12 +39,14 @@ class SearchFragment: Fragment(), SearchContract.View {
     private lateinit var recycler: RecyclerView
 
     private val searchViewModel : SearchResultViewModel by activityViewModels()
+    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        navController = findNavController()
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         presenter = SearchPresenter(this, SearchModel(
             googleApiDataSource,
@@ -62,7 +66,7 @@ class SearchFragment: Fragment(), SearchContract.View {
             object: SearchAdapter.SearchItemClickListener {
             override fun onItemClicked(data: GoogleSearchItems) {
                 searchViewModel.searchResult.value = data
-                activity?.onBackPressed()
+                navController.navigateUp()
             }
         })
         recycler.adapter = adapter
