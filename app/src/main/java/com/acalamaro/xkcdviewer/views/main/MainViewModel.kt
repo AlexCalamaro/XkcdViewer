@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val model: MainModel
+    private val model: MainModel,
 ): ViewModel() {
 
     private val _uiState = MutableLiveData<MainUiModel>()
@@ -71,6 +71,10 @@ class MainViewModel @Inject constructor(
                     is XkcdResult.Success -> {
                         withContext(Dispatchers.Main) {
                             applyResponseToState(it.data)
+
+                            // When loading the newest comic, update the newest known number
+                            // in the settings to support notification system
+                            if(number == null) model.updateNewestNumber(it.data.num)
                         }
                     }
                     is XkcdResult.Error -> {

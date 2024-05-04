@@ -50,8 +50,8 @@ class FragmentsModule {
 
     @Provides
     @Singleton
-    fun provideMainModel(xkcdApiDataSource: XkcdApiDataSource) : MainModel {
-        return MainModel(xkcdApiDataSource)
+    fun provideMainModel(xkcdApiDataSource: XkcdApiDataSource, settingsDataSource: SettingsDataSource) : MainModel {
+        return MainModel(xkcdApiDataSource, settingsDataSource)
     }
 
     @Provides

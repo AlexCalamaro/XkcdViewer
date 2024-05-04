@@ -18,16 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/button_back"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="8dp"
-                android:text="&lt;"
-                android:background="@drawable/rectangle_black_border_thin"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
             <TextView
                 android:id="@+id/settings_title"
                 android:layout_width="0dp"
@@ -38,9 +28,8 @@
                 android:textStyle="bold"
                 android:textColor="@color/colorForeground"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/button_back"
-                app:layout_constraintTop_toTopOf="@id/button_back"
-                app:layout_constraintBottom_toBottomOf="@id/button_back"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/settings_container"
@@ -49,7 +38,7 @@
                 android:layout_margin="8dp"
                 android:padding="8dp"
                 android:background="@drawable/rectangle_black_border_thin"
-                app:layout_constraintTop_toBottomOf="@id/button_back">
+                app:layout_constraintTop_toBottomOf="@id/settings_title">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/settings_container_icon"
@@ -126,6 +115,7 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
+                    android:id="@+id/donation_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
@@ -133,6 +123,31 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/donate_container_icon"
                     android:text="@string/please_donate_text"/>
+
+                <LinearLayout
+                    android:id="@+id/donate_button"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:background="@drawable/rectangle_black_border_thin"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/donation_text"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/icon_paypal"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/donate_button_text"
+                        android:textColor="@color/colorForeground"/>
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -156,6 +171,7 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
+                    android:id="@+id/about_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"

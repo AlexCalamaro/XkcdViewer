@@ -130,6 +130,7 @@ class SearchFragment: Fragment(), SearchContract.View {
         binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
             if(actionId == EditorInfo.IME_ACTION_SEARCH) {
                 presenter.submitSearchQuery(binding.searchEditText.text.toString())
+                binding.searchPromptText.visibility = View.GONE
 
                 // Hide softkeyboard
                 val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

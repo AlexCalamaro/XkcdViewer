@@ -3,10 +3,21 @@
     <string name="image_not_loaded_cd">Image not loaded</string>
     <string name="app_header">XKCD Viewer</string>
     <string name="please_donate_text">This app is completely free, however the search feature does cost money to operate. If you like the app and wish to support it, please consider donating below.</string>
-    <string name="about_app_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras at magna eu ante dapibus dignissim. Donec vel malesuada ipsum. In ornare lacus at odio convallis, vel ultrices ante molestie. Pellentesque sagittis leo sed interdum eleifend. Mauris rhoncus neque elit, vel fermentum dui suscipit nec. Quisque porta hendrerit tellus, ac rhoncus mauris suscipit eu. Etiam metus ipsum, blandit sit amet purus quis, tincidunt blandit urna. </string>
+    <string name="donate_button_text">Donate</string>
+    <string name="about_app_text"> All artwork displayed in this app is created by Randall Munroe of <a href="http://xkcd.com/">xkcd.com</a> fame. He graciously allows the reproduction of his work for non-commercial purposes as outlined <a href="https://xkcd.com/license.html">here</a>.\nIf you would like to support his work, consider purchasing one of his <a href="https://xkcd.com/books/">awesome books</a>. They go great on a coffee table!</string>
+    <string name="donation_url">https://paypal.me/acappdev?country.x=US&amp;locale.x=en_US</string>
+    <string name="search_prompt">Enter a query in the search bar above</string>
 
     <!-- Error strings -->
     <string name="error_title">Something went wrong :(</string>
     <string name="error_body">An error occurred fetching that content. Please try again later.</string>
     <string name="error_button_text">OK</string>
+
+    <!-- Notifications -->
+    <string name="notification_channel_id">new_xkcd_alert</string>
+    <string name="notification_channel_name">New XKCD Alert</string>
+    <string name="notification_channel_description">Receive notifications when a new XKCD is released</string>
+    <string name="notification_title">New XKCD Alert!</string>
+    <string name="notification_worker_name">check_latest_worker</string>
+
 </resources>

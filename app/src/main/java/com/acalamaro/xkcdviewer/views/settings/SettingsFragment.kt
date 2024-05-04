@@ -1,13 +1,16 @@
 package com.acalamaro.xkcdviewer.views.settings
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.acalamaro.xkcdviewer.R
 import com.acalamaro.xkcdviewer.databinding.FragmentSettingsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,8 +53,13 @@ class SettingsFragment: Fragment() {
         binding.darkModeToggle.setOnCheckedChangeListener { _, isChecked ->
                 viewModel.onDarkModeToggled(isChecked)
         }
-        binding.buttonBack.setOnClickListener {
-            navController.navigateUp()
+        binding.donateButton.setOnClickListener {
+            // Open chrome tab to donate
+            Intent(Intent.ACTION_VIEW).apply {
+                data = getString(R.string.donation_url).toUri()
+                startActivity(this)
+            }
         }
+        binding.aboutText.movementMethod = android.text.method.LinkMovementMethod.getInstance()
     }
 }

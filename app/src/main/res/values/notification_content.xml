@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="notification_content">
+        <item>Babe, wake up! New XKCD just dropped!</item>
+        <item>Attention stick figure enthusiasts: New XKCD has landed!</item>
+        <item>Break time! New XKCD has arrived for your procrastination needs</item>
+        <item>Did someone say existential dread with a side of laughter?</item>
+        <item>Forget the news, this is important: New XKCD is here!</item>
+        <item>Your brain needs a workout, so click here!</item>
+        <item>Go tell your co-workers right now</item>
+        <item>Your boss won\'t mind if you take a quick break, right?</item>
+        <item>Your science teacher is so proud that you have these notifications turned on</item>
+        <item>This is not a drill! I repeat, this is not a drill!</item>
+    </string-array>
+</resources>
