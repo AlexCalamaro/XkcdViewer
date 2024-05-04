@@ -31,7 +31,7 @@ class CheckLatestWorker @AssistedInject constructor(
             if (it is XkcdResult.Success) {
                 // Set the newest known xkcd number
                 settingsDataSource.setNewestKnownXkcdNumber(it.data.num)
-                if (it.data.num == lastSeen && notificationToggleEnabled)
+                if (it.data.num > lastSeen && notificationToggleEnabled)
                     // Post notification
                     postNotification()
                 }

@@ -9,6 +9,8 @@ import com.acalamaro.xkcdviewer.views.main.MainActivity
 
 object XkcdNotificationPermissions {
 
+    const val PERMISSION_REQUEST_CODE = 12391
+
     // Check if POST_NOTICIATION permission is granted
     fun checkRequestPermissions(activity: MainActivity): Boolean {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -16,7 +18,7 @@ object XkcdNotificationPermissions {
                 ActivityCompat.requestPermissions(
                     activity,
                     arrayOf(Manifest.permission.POST_NOTIFICATIONS),
-                    0
+                    PERMISSION_REQUEST_CODE
                 )
                 return false
             }

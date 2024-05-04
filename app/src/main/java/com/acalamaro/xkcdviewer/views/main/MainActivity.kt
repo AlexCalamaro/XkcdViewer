@@ -1,5 +1,6 @@
 package com.acalamaro.xkcdviewer.views.main
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -49,6 +50,22 @@ class MainActivity : AppCompatActivity(){
                 finish()
             } else {
                 navController.popBackStack()
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode) {
+            XkcdNotificationPermissions.PERMISSION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty()
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    createWorker()
+                }
             }
         }
     }

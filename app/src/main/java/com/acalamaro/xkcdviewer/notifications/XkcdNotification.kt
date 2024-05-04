@@ -4,7 +4,9 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.NotificationCompat
+import androidx.core.graphics.drawable.toBitmap
 import com.acalamaro.xkcdviewer.R
 import com.acalamaro.xkcdviewer.extensions.getRandom
 import com.acalamaro.xkcdviewer.views.main.MainActivity
@@ -22,7 +24,8 @@ object XkcdNotification {
             context,
             context.getString(R.string.notification_channel_id)
         )
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.drawable.xkcd_hat_alpha)
+            .setLargeIcon(AppCompatResources.getDrawable(context, R.drawable.xkcd_hat)!!.toBitmap())
             .setContentTitle(context.getString(R.string.notification_title))
             .setContentText(bodyArray.getRandom())
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
