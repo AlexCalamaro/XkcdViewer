@@ -10,10 +10,12 @@ class GoogleSearchApiDataSource (private val api : GoogleSearchApi) {
         searchInstance : String,
         query : String,
         apiKey : String,
-        start : Int
+        start : Int,
+        packageName: String,
+        signature: String
     ): GoogleSearchResult<GoogleSearchResponse> {
         return try {
-            val result = api.getSearchResults(searchInstance, query, apiKey, start)
+            val result = api.getSearchResults(searchInstance, query, apiKey, start, packageName, signature)
             if(result.isSuccessful) {
                 GoogleSearchResult.Success(result.body()!!)
             } else {

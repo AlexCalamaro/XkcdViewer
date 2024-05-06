@@ -67,7 +67,7 @@ class FragmentsModule {
     @Provides
     @Singleton
     fun provideSearchModel(googleApiDataSource: GoogleSearchApiDataSource, context: Context) : SearchModel {
-        return SearchModel(googleApiDataSource, context.getString(R.string.google_api_key), context.getString(R.string.search_instance_identifier))
+        return SearchModel(googleApiDataSource, context.getString(R.string.google_api_key), context.getString(R.string.search_instance_identifier), context)
     }
 
     @Provides

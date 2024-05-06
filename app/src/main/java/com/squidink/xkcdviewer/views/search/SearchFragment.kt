@@ -50,7 +50,10 @@ class SearchFragment: Fragment(), SearchContract.View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         presenter = SearchPresenter(this, SearchModel(
             googleApiDataSource,
-            requireContext().getString(R.string.google_api_key), requireContext().getString(R.string.search_instance_identifier)))
+            requireContext().getString(R.string.google_api_key),
+            requireContext().getString(R.string.search_instance_identifier),
+            requireContext()
+        ))
 
         return binding.root
     }
