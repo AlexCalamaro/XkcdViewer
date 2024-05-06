@@ -7,6 +7,20 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\blitz\\androidkeystores\\upload-keystore.jks')
+            storePassword 'Cascade2080ti!'
+            keyAlias 'upload'
+            keyPassword 'Cascade2080ti!'
+        }
+        release {
+            storeFile file('C:\\Users\\blitz\\androidkeystores\\upload-keystore.jks')
+            storePassword 'Cascade2080ti!'
+            keyAlias 'upload'
+            keyPassword 'Cascade2080ti!'
+        }
+    }
     compileSdk 34
 
     defaultConfig {
@@ -27,6 +41,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {

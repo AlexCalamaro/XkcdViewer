@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menuoption_search"
+        android:icon="@drawable/icon_search"
+        android:title="Search"
+        app:showAsAction="always"/>
+    <item android:id="@+id/menuoption_settings"
+        android:icon="@drawable/icon_settings"
+        android:title="Settings"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/menuoption_share"
+        android:icon="@drawable/icon_share"
+        android:title="Share"
+        app:showAsAction="ifRoom"/>
+</menu>

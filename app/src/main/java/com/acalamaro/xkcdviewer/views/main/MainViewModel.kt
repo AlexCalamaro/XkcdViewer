@@ -74,7 +74,9 @@ class MainViewModel @Inject constructor(
 
                             // When loading the newest comic, update the newest known number
                             // in the settings to support notification system
-                            if(number == null) model.updateNewestNumber(it.data.num)
+                            if(number == null) {
+                                model.updateNewestNumber(it.data.num)
+                            }
                         }
                     }
                     is XkcdResult.Error -> {
@@ -92,6 +94,7 @@ class MainViewModel @Inject constructor(
                 title = data.title,
                 imageUrl = data.img,
                 altText = data.alt.blankIfNull(),
+                link = data.link.blankIfNull(),
                 number = data.num,
                 newestNumber = data.num.coerceAtLeast(_uiState.value?.newestNumber ?: 0),
                 isError = false

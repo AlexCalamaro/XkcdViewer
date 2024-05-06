@@ -25,7 +25,7 @@ class CheckLatestWorker @AssistedInject constructor(
 ) : CoroutineWorker(appContext, workerParams) {
     override suspend fun doWork(): Result {
         // Check if there is a newer xkcd than the last one we saw
-        val lastSeen = settingsDataSource.getNewestKnownXkcdNumber() ?: 0
+        val lastSeen = settingsDataSource.getNewestKnownXkcdNumber() ?: Int.MAX_VALUE
         val notificationToggleEnabled = settingsDataSource.getNotificationsToggleState().first()
         xkcdApiDataSource.getLatestXkcd().let {
             if (it is XkcdResult.Success) {

@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity(){
             .build()
         workManager.enqueueUniquePeriodicWork(
             getString(R.string.notification_worker_name),
-            ExistingPeriodicWorkPolicy.KEEP,
+            ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE,
             work
         )
     }

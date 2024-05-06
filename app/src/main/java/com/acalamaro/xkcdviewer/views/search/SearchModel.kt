@@ -19,7 +19,11 @@ class SearchModel @Inject constructor(
             start)
         return when(result) {
             is GoogleSearchResult.Success -> {
-                GoogleSearchResult.Success(result.data)
+                // filter out links that don't have a url that looks like https://xkcd.com/###/
+                val filteredItems = result.data.items?.filter {
+                    it.link.matches(Regex("https://xkcd.com/\\d+/"))
+                }
+                GoogleSearchResult.Success(result.data.copy(items = filteredItems))
             }
 
             is GoogleSearchResult.Error -> {

@@ -1,7 +1,12 @@
 package com.acalamaro.xkcdviewer.views.main
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -45,6 +50,7 @@ class MainFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindButtons()
+        configureMenu()
 
         // Configure main ViewModel to observe UI state changes
         viewModel.uiState.observe(viewLifecycleOwner) {
@@ -72,12 +78,34 @@ class MainFragment: Fragment() {
         viewModel.uiState.value?.number?.let { viewModel.loadSpecific(it) } ?: viewModel.loadLatest()
     }
 
+    private fun configureMenu() {
+        binding.mainToolbar.apply {
+            setOnMenuItemClickListener { item ->
+                when(item.itemId) {
+                    R.id.menuoption_search -> {
+                        navController.navigate(R.id.action_mainFragment_to_searchFragment)
+                        true
+                    }
+                    R.id.menuoption_settings -> {
+                        navController.navigate(R.id.action_mainFragment_to_settingsFragment)
+                        true
+                    }
+                    R.id.menuoption_share -> {
+                        createShareIntent()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }
+    }
+
     private fun setTitle(title: String) {
-        binding.xkcdTitle.text = title
+        binding.toolbarTitle.text = title
     }
 
     private fun setNumber(number: String) {
-        binding.xkcdNumber.text = "#"+number
+        binding.toolbarSubtitle.text = "#"+number
     }
 
     private fun setImage(image: String) {
@@ -121,12 +149,19 @@ class MainFragment: Fragment() {
         binding.buttonRandom.setOnClickListener { viewModel.loadRandom() }
         binding.buttonLatest.setOnClickListener { viewModel.loadLatest() }
         binding.buttonNext.setOnClickListener { viewModel.loadNext() }
+    }
 
-        binding.buttonSearch.setOnClickListener {
-            navController.navigate(R.id.action_mainFragment_to_searchFragment)
-        }
-        binding.buttonSettings.setOnClickListener {
-            navController.navigate(R.id.action_mainFragment_to_settingsFragment)
+    private fun createShareIntent() {
+        viewModel.uiState.value?.let {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TITLE, it.title)
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.xkcd_base_url)+it.number)
+                type = "text/html"
+            }
+
+            val shareIntent = Intent.createChooser(sendIntent, binding.mainToolbar.title)
+            startActivity(shareIntent)
         }
     }
 

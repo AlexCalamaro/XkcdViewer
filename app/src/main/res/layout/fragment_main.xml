@@ -5,59 +5,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageButton
-        android:id="@+id/button_search"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_margin="8dp"
-        android:src="@drawable/ic_baseline_search_24"
-        android:background="@drawable/rectangle_black_border_thin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="Search button" />
-
-    <ImageButton
-        android:id="@+id/button_settings"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/icon_settings"
-        android:layout_margin="8dp"
-        android:background="@drawable/rectangle_black_border_thin"
-        app:layout_constraintEnd_toStartOf="@id/button_search"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="Donation button" />
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/title_bar"
-        android:layout_width="0dp"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/main_toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:orientation="horizontal"
-        android:gravity="start|center_vertical"
-        app:layout_constraintTop_toTopOf="@id/button_settings"
+        app:menu="@menu/main_menu"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/button_settings">
-        <TextView
-            android:id="@+id/xkcd_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:ellipsize="end"
-            android:layout_margin="8dp"
-            android:textColor="@color/colorForeground"
-            tools:text="LOREM IPSUM RANDOM "/>
+        app:layout_constraintEnd_toEndOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/xkcd_number"
-            android:textColor="@color/colorForeground"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_marginLeft="8dp"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorForeground"
+                android:textIsSelectable="false"
+                android:scrollHorizontally="true"
+                android:gravity="left"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="Title"/>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
+            <TextView
+                android:id="@+id/toolbar_subtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="14sp"
+                android:gravity="left"
+                app:layout_constraintTop_toBottomOf="@id/toolbar_title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="Subtitle"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <com.ortiz.touchview.TouchImageView
         android:id="@+id/xkcd_image"
@@ -65,7 +58,8 @@
         android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/image_not_loaded_cd"
-        app:layout_constraintTop_toBottomOf="@id/title_bar"
+        android:ellipsize="end"
+        app:layout_constraintTop_toBottomOf="@id/main_toolbar"
         app:layout_constraintBottom_toTopOf="@id/xkcd_alt_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

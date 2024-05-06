@@ -4,6 +4,7 @@ data class MainUiModel (
     val title: String,
     val imageUrl: String,
     val altText: String,
+    val link: String,
     val number: Int?,
     val newestNumber: Int?,
     val isError: Boolean
@@ -12,6 +13,7 @@ data class MainUiModel (
             title = "",
             imageUrl = "",
             altText = "",
+            link = "",
             number = null,
             newestNumber = null,
             isError = false
