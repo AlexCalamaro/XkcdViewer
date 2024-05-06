@@ -12,11 +12,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
-        android:name="com.acalamaro.xkcdviewer.XkcdViewerApplication"
+        android:name="com.squidink.xkcdviewer.XkcdViewerApplication"
         android:theme="@style/Theme.xkcdviewer"
         tools:targetApi="31">
         <activity
-            android:name="com.acalamaro.xkcdviewer.views.main.MainActivity"
+            android:name="com.squidink.xkcdviewer.views.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

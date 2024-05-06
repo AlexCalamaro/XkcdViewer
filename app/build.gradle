@@ -1,3 +1,4 @@
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
@@ -6,25 +7,24 @@ plugins {
     id 'kotlin-parcelize'
 }
 
+// Import keystore settings
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
     signingConfigs {
-        debug {
-            storeFile file('C:\\Users\\blitz\\androidkeystores\\upload-keystore.jks')
-            storePassword 'Cascade2080ti!'
-            keyAlias 'upload'
-            keyPassword 'Cascade2080ti!'
-        }
         release {
-            storeFile file('C:\\Users\\blitz\\androidkeystores\\upload-keystore.jks')
-            storePassword 'Cascade2080ti!'
-            keyAlias 'upload'
-            keyPassword 'Cascade2080ti!'
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
         }
     }
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.acalamaro.xkcdviewer"
+        applicationId "com.squidink.xkcdviewer"
         minSdk 24
         targetSdk 34
         versionCode 1
@@ -42,6 +42,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            applicationIdSuffix '.release'
+        }
+        debug {
+            debuggable true
+            applicationIdSuffix '.debug'
         }
     }
     compileOptions {
@@ -51,7 +56,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    namespace 'com.acalamaro.xkcdviewer'
+    namespace 'com.squidink.xkcdviewer'
 }
 
 dependencies {
