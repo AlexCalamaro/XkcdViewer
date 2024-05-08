@@ -29,15 +29,16 @@ class CheckLatestWorker @AssistedInject constructor(
         val notificationToggleEnabled = settingsDataSource.getNotificationsToggleState().first()
         xkcdApiDataSource.getLatestXkcd().let {
             if (it is XkcdResult.Success) {
-                // Set the newest known xkcd number
-                settingsDataSource.setNewestKnownXkcdNumber(it.data.num)
-                if (it.data.num > lastSeen && notificationToggleEnabled)
+                if (it.data.num > lastSeen && notificationToggleEnabled) {
                     // Post notification
                     postNotification()
+                    // Set the newest known xkcd number
+                    settingsDataSource.setNewestKnownXkcdNumber(it.data.num)
                 }
             }
             return Result.success()
         }
+    }
 
     @SuppressLint("MissingPermission")
     private fun postNotification() {
