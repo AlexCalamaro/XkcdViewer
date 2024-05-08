@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import com.squidink.xkcdviewer.R
 import com.squidink.xkcdviewer.data.remoteobjects.GoogleSearchItems
 import com.squidink.xkcdviewer.data.remoteobjects.GoogleSearchResponse
-import com.squareup.picasso.Picasso
 
 class SearchAdapter(var data: GoogleSearchResponse, val picasso: Picasso, val listener: SearchItemClickListener): RecyclerView.Adapter<SearchAdapter.ViewHolder>(){
 

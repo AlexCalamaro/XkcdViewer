@@ -12,7 +12,17 @@ data class GoogleSearchResponse(
     val searchInformation: GoogleSearchInformation?,
     val items: List<GoogleSearchItems>?,
     val queries: SearchQueries?
-)
+) {
+    companion object {
+        val EMPTY = GoogleSearchResponse(
+            kind = null,
+            searchInformation = null,
+            items = null,
+            queries = null
+        )
+    }
+
+}
 
 data class GoogleSearchInformation(
     val totalResults : Int

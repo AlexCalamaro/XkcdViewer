@@ -15,3 +15,4 @@
 local.properties
 /app/src/main/res/values/secrets.xml
 /keystore.properties
+/app/src/main/java/com/squidink/xkcdviewer/Secrets.kt

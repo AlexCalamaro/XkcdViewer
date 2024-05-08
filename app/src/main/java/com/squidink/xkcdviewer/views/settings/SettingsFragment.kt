@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.squidink.xkcdviewer.R
 import com.squidink.xkcdviewer.databinding.FragmentSettingsBinding
+import com.squidink.xkcdviewer.views.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

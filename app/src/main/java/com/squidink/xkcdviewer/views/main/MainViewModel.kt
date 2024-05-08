@@ -65,6 +65,8 @@ class MainViewModel @Inject constructor(
         }
     }
     private fun loadXkcd(number : Int?) {
+        _uiState.postValue(_uiState.value?.copy(isLoading = true))
+
         CoroutineScope(Dispatchers.IO).launch {
             model?.loadXkcd(number)?.let {
                 when(it) {
@@ -97,7 +99,8 @@ class MainViewModel @Inject constructor(
                 link = data.link.blankIfNull(),
                 number = data.num,
                 newestNumber = data.num.coerceAtLeast(_uiState.value?.newestNumber ?: 0),
-                isError = false
+                isError = false,
+                isLoading = false
             )
         )
 

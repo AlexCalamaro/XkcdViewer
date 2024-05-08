@@ -7,7 +7,8 @@ data class MainUiModel (
     val link: String,
     val number: Int?,
     val newestNumber: Int?,
-    val isError: Boolean
+    val isError: Boolean,
+    val isLoading: Boolean
 ) { companion object {
         val EMPTY = MainUiModel(
             title = "",
@@ -16,7 +17,8 @@ data class MainUiModel (
             link = "",
             number = null,
             newestNumber = null,
-            isError = false
+            isError = false,
+            isLoading = false
         )
     }
 }

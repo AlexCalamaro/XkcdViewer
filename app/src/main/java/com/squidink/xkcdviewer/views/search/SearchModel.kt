@@ -1,32 +1,28 @@
 package com.squidink.xkcdviewer.views.search
 
-import android.content.Context
 import com.squidink.xkcdviewer.BuildConfig
-import com.squidink.xkcdviewer.R
+import com.squidink.xkcdviewer.Secrets
 import com.squidink.xkcdviewer.data.GoogleSearchApiDataSource
 import com.squidink.xkcdviewer.data.remoteobjects.GoogleSearchResponse
 import com.squidink.xkcdviewer.data.remoteobjects.GoogleSearchResult
 import javax.inject.Inject
 
 class SearchModel @Inject constructor(
-    private val googleApiDataSource : GoogleSearchApiDataSource,
-    private val apiKey : String,
-    private val searchInstanceId : String,
-    private val context: Context
-) : SearchContract.Model {
+    private val googleApiDataSource : GoogleSearchApiDataSource
+) {
 
-    override suspend fun performSearch(query: String, start: Int) : GoogleSearchResult<GoogleSearchResponse> {
-        var packageName = context.getString(R.string.package_name_release)
-        var signature = context.getString(R.string.sha_release)
+    suspend fun performSearch(query: String, start: Int) : GoogleSearchResult<GoogleSearchResponse> {
+        var packageName = SearchConstants.PACKAGE_NAME_RELEASE
+        var signature = SearchConstants.SHA_RELEASE
         if(BuildConfig.DEBUG) {
-            packageName = context.getString(R.string.package_name_debug)
-            signature = context.getString(R.string.sha_debug)
+            packageName = SearchConstants.PACKAGE_NAME_DEBUG
+            signature = SearchConstants.SHA_DEBUG
         }
 
         val result = googleApiDataSource.getSearchResults(
-            searchInstanceId,
+            Secrets.SEARCH_INSTANCE_IDENTIFIER,
             query,
-            apiKey,
+            Secrets.GOOGLE_API_KEY,
             start,
             packageName,
             signature

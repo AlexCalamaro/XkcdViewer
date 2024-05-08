@@ -3,7 +3,9 @@ package com.squidink.xkcdviewer.hilt
 import android.app.Activity
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.squareup.picasso.Picasso
 import com.squidink.xkcdviewer.R
+import com.squidink.xkcdviewer.Secrets
 import com.squidink.xkcdviewer.data.GoogleSearchApiDataSource
 import com.squidink.xkcdviewer.data.SettingsDataSource
 import com.squidink.xkcdviewer.data.XkcdApiDataSource
@@ -12,14 +14,15 @@ import com.squidink.xkcdviewer.views.main.MainFragment
 import com.squidink.xkcdviewer.views.main.MainModel
 import com.squidink.xkcdviewer.views.search.SearchFragment
 import com.squidink.xkcdviewer.views.search.SearchModel
-import com.squidink.xkcdviewer.views.search.SearchPresenter
 import com.squidink.xkcdviewer.views.settings.SettingsFragment
 import com.squidink.xkcdviewer.views.settings.SettingsModel
-import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.components.FragmentComponent
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
@@ -38,11 +41,18 @@ object MainActivityModule {
     fun provideApplicationContext(@ApplicationContext context: Context): Context {
         return context
     }
-}
 
-@InstallIn(SingletonComponent::class)
-@Module
-class FragmentsModule {
+
+    @Provides
+    fun provideSearchFragment(): SearchFragment {
+        return SearchFragment()
+    }
+
+    @Provides
+    fun provideSettingsFragment(): SettingsFragment {
+        return SettingsFragment()
+    }
+
     @Provides
     fun provideMainFragment() : MainFragment {
         return MainFragment()
@@ -55,19 +65,9 @@ class FragmentsModule {
     }
 
     @Provides
-    fun provideSearchFragment(): SearchFragment {
-        return SearchFragment()
-    }
-
-    @Provides
-    fun provideSearchPresenter(view : SearchFragment, model: SearchModel) : SearchPresenter {
-        return SearchPresenter(view, model)
-    }
-
-    @Provides
     @Singleton
-    fun provideSearchModel(googleApiDataSource: GoogleSearchApiDataSource, context: Context) : SearchModel {
-        return SearchModel(googleApiDataSource, context.getString(R.string.google_api_key), context.getString(R.string.search_instance_identifier), context)
+    fun provideSearchModel(googleApiDataSource: GoogleSearchApiDataSource) : SearchModel {
+        return SearchModel(googleApiDataSource)
     }
 
     @Provides
@@ -76,19 +76,18 @@ class FragmentsModule {
     }
 
     @Provides
-    fun provideSettingsFragment(): SettingsFragment {
-        return SettingsFragment()
-    }
-
-    @Provides
     @Singleton
     fun provideSettingsModel(dataSource: SettingsDataSource) : SettingsModel {
         return SettingsModel(dataSource)
     }
+}
 
+@InstallIn(SingletonComponent::class)
+@Module
+class PicassoModule {
     @Provides
     @Singleton
-    fun providePicasso() : Picasso {
-        return Picasso.get()
+    fun providePicasso(@ApplicationContext context: Context) : Picasso {
+        return Picasso.Builder(context).build()
     }
 }

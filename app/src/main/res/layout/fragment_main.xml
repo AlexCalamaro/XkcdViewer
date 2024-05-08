@@ -127,4 +127,17 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/loading_image"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/image_loading"
+        android:tint="@color/colorForeground"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,23 +1,24 @@
 package com.squidink.xkcdviewer.views.main
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.squareup.picasso.Picasso
 import com.squidink.xkcdviewer.R
 import com.squidink.xkcdviewer.databinding.FragmentMainBinding
 import com.squidink.xkcdviewer.extensions.showErrorDialog
 import com.squidink.xkcdviewer.utils.ImageUtils
 import com.squidink.xkcdviewer.utils.SearchParseUtils
-import com.squidink.xkcdviewer.views.search.SearchResultViewModel
-import com.squareup.picasso.Picasso
+import com.squidink.xkcdviewer.views.search.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,10 +28,10 @@ class MainFragment: Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MainViewModel by viewModels()
     @Inject lateinit var picasso : Picasso
 
-    private val searchViewModel : SearchResultViewModel by activityViewModels()
+    private val viewModel: MainViewModel by viewModels()
+    private val searchViewModel : SearchViewModel by viewModels()
     private lateinit var navController: NavController
 
     override fun onCreateView(
@@ -53,19 +54,21 @@ class MainFragment: Fragment() {
             it?.let { uiModel ->
                 if(uiModel.isError) {
                     showErrorDialog()
+                    showLoading(false)
                     return@observe
                 } else {
                     setTitle(uiModel.title)
                     setNumber(uiModel.number.toString())
                     setImage(uiModel.imageUrl)
                     setAltText(uiModel.altText)
+                    showLoading(uiModel.isLoading)
                 }
             }
         }
 
         // Configure SearchViewModel provides data when a search result is selected in SearchFragment.
-        searchViewModel.searchResult.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            SearchParseUtils.getComicNumberFromUrl(it.link)?.let { number ->
+        searchViewModel.uiState.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            SearchParseUtils.getComicNumberFromUrl(it.selectedResult?.link)?.let { number ->
                 viewModel.loadSpecific(number)
             }
         })
@@ -108,7 +111,6 @@ class MainFragment: Fragment() {
         binding.let {
             it.xkcdImage.resetZoom()
             context?.let { ctx ->
-
                 /**
                  * If night mode is enabled, apply a transformation to the image,
                  * converting it to greyscale and then inverting it. See [ImageUtils]
@@ -145,6 +147,25 @@ class MainFragment: Fragment() {
         binding.buttonRandom.setOnClickListener { viewModel.loadRandom() }
         binding.buttonLatest.setOnClickListener { viewModel.loadLatest() }
         binding.buttonNext.setOnClickListener { viewModel.loadNext() }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding?.let {binding ->
+            if(isLoading) {
+                binding.loadingImage.visibility = View.VISIBLE
+                ObjectAnimator
+                    .ofFloat(binding.loadingImage, "rotation", 0f, 360f)
+                    .apply {
+                        duration = 1000
+                        repeatCount = ObjectAnimator.INFINITE
+                        repeatMode = ObjectAnimator.RESTART
+                        interpolator = LinearInterpolator()
+                        start()
+                    }
+            } else {
+                binding.loadingImage.visibility = View.GONE
+            }
+        }
     }
 
     private fun createShareIntent() {

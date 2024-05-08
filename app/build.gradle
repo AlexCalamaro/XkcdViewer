@@ -27,7 +27,7 @@ android {
         applicationId "com.squidink.xkcdviewer"
         minSdk 24
         targetSdk 34
-        versionCode 1
+        versionCode 3
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -48,6 +48,8 @@ android {
         debug {
             debuggable true
             applicationIdSuffix '.debug'
+            // Change debug app name
+            resValue "string", "app_name", "xkcd debug"
         }
     }
     compileOptions {

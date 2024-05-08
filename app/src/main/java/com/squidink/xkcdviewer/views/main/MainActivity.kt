@@ -1,7 +1,10 @@
 package com.squidink.xkcdviewer.views.main
 
+import android.animation.ObjectAnimator
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.View
+import android.view.animation.LinearInterpolator
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -32,14 +35,15 @@ class MainActivity : AppCompatActivity(){
     @Inject lateinit var mainFragment : MainFragment
     @Inject lateinit var settingsDataSource: SettingsDataSource
 
-    private lateinit var binding : ActivityMainBinding
+    private var binding: ActivityMainBinding? = null
     private lateinit var navController: NavController
+    private var animator: ObjectAnimator? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         observeDarkMode()
         observeNotificationToggle()
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(binding?.root)
 
         // Set up NavController
         val navHostFragment = supportFragmentManager
