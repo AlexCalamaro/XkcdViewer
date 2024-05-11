@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.squidink.xkcdviewer.BuildConfig
 import com.squidink.xkcdviewer.R
 import com.squidink.xkcdviewer.databinding.FragmentSettingsBinding
 import com.squidink.xkcdviewer.views.main.MainActivity
@@ -36,6 +37,7 @@ class SettingsFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindButtons()
+        setBuildInfo()
 
         viewModel.uiState.observe(viewLifecycleOwner) { uiModel ->
             uiModel?.let {
@@ -62,5 +64,11 @@ class SettingsFragment: Fragment() {
             }
         }
         binding.aboutText.movementMethod = android.text.method.LinkMovementMethod.getInstance()
+    }
+
+    private fun setBuildInfo() {
+        val versionName = BuildConfig.VERSION_NAME
+        val versionCode = BuildConfig.VERSION_CODE
+        binding.buildText.text = getString(R.string.build_version, versionName, versionCode)
     }
 }

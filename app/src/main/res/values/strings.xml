@@ -7,6 +7,7 @@
     <string name="about_app_text"> All artwork displayed in this app is created by Randall Munroe of <a href="http://xkcd.com/">xkcd.com</a> fame. He graciously allows the reproduction of his work for non-commercial purposes as outlined <a href="https://xkcd.com/license.html">here</a>.\nIf you would like to support his work, consider purchasing one of his <a href="https://xkcd.com/books/">awesome books</a>. They go great on a coffee table!</string>
     <string name="donation_url">https://paypal.me/acappdev?country.x=US&amp;locale.x=en_US</string>
     <string name="search_prompt">Enter a query in the search bar above</string>
+    <string name="build_version">Version name: %1$s\nVersion code: %2$d</string>
 
     <!-- Error strings -->
     <string name="error_title">Something went wrong :(</string>
