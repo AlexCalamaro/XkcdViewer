@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">xkcd</string>
+    <string name="show_alt_text">Long-press to show alt-text</string>
+    <string name="alt_text">Alt-text</string>
+    <string name="alt_text_error">Sorry, we\'re unable to load alt-text for this image.</string>
     <string name="image_not_loaded_cd">Image not loaded</string>
     <string name="app_header">XKCD Viewer</string>
     <string name="please_donate_text">This app is completely free, however the search feature does cost money to operate. If you like the app and wish to support it, please consider donating below.</string>
@@ -13,6 +16,8 @@
     <string name="error_title">Something went wrong :(</string>
     <string name="error_body">An error occurred fetching that content. Please try again later.</string>
     <string name="error_button_text">OK</string>
+    <string name="notification_error_title">Unable to enable notifications</string>
+    <string name="notification_error_body">Notifications weren\'t turned on because the permission was denied. If it has been denied more than twice, you\'ll need to manually enable notifications in Android settings for this app.</string>
 
     <!-- Notifications -->
     <string name="notification_channel_id">new_xkcd_alert</string>

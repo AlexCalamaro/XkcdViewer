@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.squareup.picasso.Picasso
 import com.squidink.xkcdviewer.R
 import com.squidink.xkcdviewer.databinding.FragmentMainBinding
+import com.squidink.xkcdviewer.extensions.showContentDialog
 import com.squidink.xkcdviewer.extensions.showErrorDialog
 import com.squidink.xkcdviewer.utils.ImageUtils
 import com.squidink.xkcdviewer.utils.SearchParseUtils
@@ -60,7 +61,6 @@ class MainFragment: Fragment() {
                     setTitle(uiModel.title)
                     setNumber(uiModel.number.toString())
                     setImage(uiModel.imageUrl)
-                    setAltText(uiModel.altText)
                     showLoading(uiModel.isLoading)
                 }
             }
@@ -110,6 +110,7 @@ class MainFragment: Fragment() {
     private fun setImage(image: String) {
         binding.let {
             it.xkcdImage.resetZoom()
+            it.xkcdImage.minZoom = 0.3f
             context?.let { ctx ->
                 /**
                  * If night mode is enabled, apply a transformation to the image,
@@ -125,10 +126,6 @@ class MainFragment: Fragment() {
                 }
             }
         }
-    }
-
-    private fun setAltText(altText: String) {
-        binding.xkcdAltText.text = altText
     }
 
     fun showToast(toastText: String) {
@@ -147,6 +144,17 @@ class MainFragment: Fragment() {
         binding.buttonRandom.setOnClickListener { viewModel.loadRandom() }
         binding.buttonLatest.setOnClickListener { viewModel.loadLatest() }
         binding.buttonNext.setOnClickListener { viewModel.loadNext() }
+
+        binding.xkcdImage.setOnClickListener {
+            Toast.makeText(context, getString(R.string.show_alt_text), Toast.LENGTH_SHORT).show()
+        }
+        binding.xkcdImage.setOnLongClickListener {
+            this.showContentDialog(
+                title = getString(R.string.alt_text),
+                message = viewModel.uiState.value?.altText ?: getString(R.string.alt_text_error)
+            )
+            true
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {

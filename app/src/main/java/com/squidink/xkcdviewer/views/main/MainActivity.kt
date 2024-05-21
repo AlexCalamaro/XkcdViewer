@@ -19,6 +19,7 @@ import androidx.work.WorkManager
 import com.squidink.xkcdviewer.R
 import com.squidink.xkcdviewer.data.SettingsDataSource
 import com.squidink.xkcdviewer.databinding.ActivityMainBinding
+import com.squidink.xkcdviewer.extensions.showErrorDialog
 import com.squidink.xkcdviewer.notifications.XkcdNotificationPermissions
 import com.squidink.xkcdviewer.notifications.workmanager.CheckLatestWorker
 import com.squidink.xkcdviewer.views.search.SearchFragment
@@ -66,9 +67,18 @@ class MainActivity : AppCompatActivity(){
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when(requestCode) {
             XkcdNotificationPermissions.PERMISSION_REQUEST_CODE -> {
-                if (grantResults.isNotEmpty()
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    createWorker()
+                if (grantResults.isNotEmpty()) {
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        createWorker()
+                    } else if(grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                        lifecycleScope.launch {
+                            settingsDataSource.setNotificationsToggleState(false)
+                            showErrorDialog(
+                                getString(R.string.notification_error_title),
+                                getString(R.string.notification_error_body)
+                            )
+                        }
+                    }
                 }
             }
         }

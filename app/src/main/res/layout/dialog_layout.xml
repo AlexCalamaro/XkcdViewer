@@ -13,9 +13,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/dialog_icon"
-        android:src="@drawable/icon_error"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
