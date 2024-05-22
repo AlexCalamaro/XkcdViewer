@@ -2,12 +2,18 @@ package com.squidink.xkcdviewer.views.main
 
 import android.animation.ObjectAnimator
 import android.content.Intent
+import android.graphics.Insets
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
 import android.view.animation.LinearInterpolator
 import android.widget.Toast
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -15,6 +21,8 @@ import androidx.navigation.fragment.findNavController
 import com.squareup.picasso.Picasso
 import com.squidink.xkcdviewer.R
 import com.squidink.xkcdviewer.databinding.FragmentMainBinding
+import com.squidink.xkcdviewer.extensions.setBottomInset
+import com.squidink.xkcdviewer.extensions.setTopInset
 import com.squidink.xkcdviewer.extensions.showContentDialog
 import com.squidink.xkcdviewer.extensions.showErrorDialog
 import com.squidink.xkcdviewer.utils.ImageUtils
@@ -48,6 +56,7 @@ class MainFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bindButtons()
+        setInsets()
         configureMenu()
 
         // Configure main ViewModel to observe UI state changes
@@ -110,7 +119,8 @@ class MainFragment: Fragment() {
     private fun setImage(image: String) {
         binding.let {
             it.xkcdImage.resetZoom()
-            it.xkcdImage.minZoom = 0.3f
+            it.xkcdImage.minZoom = 0.7f
+            it.xkcdImage.setZoom(0.9f)
             context?.let { ctx ->
                 /**
                  * If night mode is enabled, apply a transformation to the image,
@@ -188,6 +198,11 @@ class MainFragment: Fragment() {
             val shareIntent = Intent.createChooser(sendIntent, binding.mainToolbar.title)
             startActivity(shareIntent)
         }
+    }
+
+    private fun setInsets() {
+        setTopInset(binding.mainToolbar)
+        setBottomInset(binding.buttonContainer)
     }
 
     override fun onDestroyView() {

@@ -25,9 +25,9 @@ android {
 
     defaultConfig {
         applicationId "com.squidink.xkcdviewer"
-        minSdk 24
+        minSdk 29
         targetSdk 34
-        versionCode 7
+        versionCode 8
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

@@ -22,6 +22,8 @@ import com.squidink.xkcdviewer.data.GoogleSearchApiDataSource
 import com.squidink.xkcdviewer.data.remoteobjects.GoogleSearchItems
 import com.squidink.xkcdviewer.data.remoteobjects.GoogleSearchResponse
 import com.squidink.xkcdviewer.databinding.FragmentSearchBinding
+import com.squidink.xkcdviewer.extensions.setBottomInset
+import com.squidink.xkcdviewer.extensions.setTopInset
 import com.squidink.xkcdviewer.extensions.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -55,6 +57,7 @@ class SearchFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showLoading(false)
+        setInsets()
 
         recycler = binding.searchRecycler
         recycler.layoutManager = layoutManager
@@ -163,5 +166,9 @@ class SearchFragment: Fragment() {
             }
             true
         }
+    }
+
+    private fun setInsets() {
+        setTopInset(binding.searchContainer)
     }
 }

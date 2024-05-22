@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.activity.addCallback
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -41,6 +43,7 @@ class MainActivity : AppCompatActivity(){
     private var animator: ObjectAnimator? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         observeDarkMode()
         observeNotificationToggle()
         binding = ActivityMainBinding.inflate(layoutInflater)

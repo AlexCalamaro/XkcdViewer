@@ -1,6 +1,12 @@
 package com.squidink.xkcdviewer.extensions
 
 import android.app.AlertDialog
+import android.graphics.Insets
+import android.os.Build
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import com.squidink.xkcdviewer.R
 import com.squidink.xkcdviewer.databinding.DialogLayoutBinding
@@ -39,4 +45,30 @@ internal fun Fragment.showContentDialog(
     val dialog = builder.create()
     dialogBinding.dialogButtonAffirm.setOnClickListener { dialog.dismiss() }
     dialog.show()
+}
+
+internal fun Fragment.setTopInset(view: View) {
+    var insets: Insets? = null
+    view.setOnApplyWindowInsetsListener { view, i ->
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            insets = i.getInsets(WindowInsetsCompat.Type.systemBars())
+        }
+        view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            topMargin = insets?.top ?: i.systemWindowInsetTop
+        }
+        i
+    }
+}
+
+internal fun Fragment.setBottomInset(view: View) {
+    var insets: Insets? = null
+    view.setOnApplyWindowInsetsListener { view, i ->
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            insets = i.getInsets(WindowInsetsCompat.Type.systemBars())
+        }
+        view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            bottomMargin = insets?.bottom ?: i.systemWindowInsetBottom
+        }
+        i
+    }
 }
