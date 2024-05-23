@@ -46,10 +46,11 @@
         android:id="@+id/search_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:overScrollMode="never"
         app:layout_constraintTop_toBottomOf="@id/search_container"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="8dp"
         app:layout_constraintRight_toRightOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView

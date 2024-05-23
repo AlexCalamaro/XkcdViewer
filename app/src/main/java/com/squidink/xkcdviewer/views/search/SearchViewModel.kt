@@ -47,7 +47,11 @@ class SearchViewModel @Inject constructor(
             }
             when(result) {
                 is GoogleSearchResult.Success -> {
-                    _uiState.value = _uiState.value?.copy(searchResult = result.data)
+                    _uiState.value = _uiState.value?.copy(
+                        searchResult = result.data,
+                        shouldShowNextButton = result.data.queries?.nextPage?.isNotEmpty() ?: false,
+                        shouldShowPreviousButton = result.data.queries?.previousPage?.isNotEmpty() ?: false,
+                    )
                 }
                 else -> {
                     _uiState.value = uiState.value?.copy(isError = true)

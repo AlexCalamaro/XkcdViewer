@@ -70,7 +70,7 @@ class SettingsFragment: Fragment() {
     }
 
     private fun setInsets() {
-        setTopInset(binding.settingsTopContainer)
+        setTopInset(binding.settingsScrollView)
     }
 
     private fun setBuildInfo() {

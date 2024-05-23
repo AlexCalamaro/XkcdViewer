@@ -121,21 +121,27 @@ class SearchFragment: Fragment() {
     private fun displaySearchResults(results: GoogleSearchResponse) {
         adapter.data = results
         adapter.notifyDataSetChanged()
+
+        if(results.items.isNullOrEmpty()) {
+            binding.searchPromptText.visibility = View.VISIBLE
+        } else {
+            binding.searchPromptText.visibility = View.GONE
+        }
     }
 
     private fun showPrevButton(visible: Boolean) {
-        if(visible) {
-            binding.buttonSearchPageBack.visibility = View.VISIBLE
+        binding.buttonSearchPageBack.visibility = if(visible) {
+            View.VISIBLE
         } else {
-            binding.buttonSearchPageBack.visibility = View.GONE
+            View.GONE
         }
     }
 
     private fun showNextButton(visible: Boolean) {
-        if(visible) {
-            binding.buttonSearchPageNext.visibility = View.VISIBLE
+        binding.buttonSearchPageNext.visibility = if(visible) {
+            View.VISIBLE
         } else {
-            binding.buttonSearchPageNext.visibility = View.GONE
+            View.GONE
         }
     }
 
@@ -159,7 +165,6 @@ class SearchFragment: Fragment() {
         binding.searchEditText.setOnEditorActionListener { _, actionId, _ ->
             if(actionId == EditorInfo.IME_ACTION_SEARCH) {
                 viewModel.submitSearchQuery(binding.searchEditText.text.toString())
-                binding.searchPromptText.visibility = View.GONE
                 // Hide softkeyboard
                 val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
