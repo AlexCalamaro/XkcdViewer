@@ -43,6 +43,18 @@ class MainFragment: Fragment() {
     private val searchViewModel : SearchViewModel by viewModels()
     private lateinit var navController: NavController
 
+    private val picassoCallback = object : com.squareup.picasso.Callback {
+        override fun onSuccess() {
+            binding?.xkcdImage?.setZoom(0.9f)
+            showLoading(false)
+        }
+
+        override fun onError(e: Exception?) {
+            showErrorDialog()
+            showLoading(false)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -118,9 +130,8 @@ class MainFragment: Fragment() {
 
     private fun setImage(image: String) {
         binding.let {
-            it.xkcdImage.resetZoom()
+            showLoading(true)
             it.xkcdImage.minZoom = 0.7f
-            it.xkcdImage.setZoom(0.9f)
             context?.let { ctx ->
                 /**
                  * If night mode is enabled, apply a transformation to the image,
@@ -129,10 +140,10 @@ class MainFragment: Fragment() {
                 if(ImageUtils.isNightModeEnabled(ctx)) {
                     picasso.load(image)
                         .transform(ImageUtils.Companion.InversionTransformation())
-                        .into(binding.xkcdImage)
+                        .into(binding.xkcdImage, picassoCallback)
                 } else {
                     picasso.load(image)
-                        .into(binding.xkcdImage)
+                        .into(binding.xkcdImage, picassoCallback)
                 }
             }
         }
