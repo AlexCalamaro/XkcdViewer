@@ -3,13 +3,10 @@ package com.squidink.xkcdviewer.views.main
 import android.animation.ObjectAnimator
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.View
-import android.view.animation.LinearInterpolator
 import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment

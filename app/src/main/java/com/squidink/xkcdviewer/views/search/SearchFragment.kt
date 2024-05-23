@@ -11,7 +11,7 @@ import android.view.animation.LinearInterpolator
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,7 +22,6 @@ import com.squidink.xkcdviewer.data.GoogleSearchApiDataSource
 import com.squidink.xkcdviewer.data.remoteobjects.GoogleSearchItems
 import com.squidink.xkcdviewer.data.remoteobjects.GoogleSearchResponse
 import com.squidink.xkcdviewer.databinding.FragmentSearchBinding
-import com.squidink.xkcdviewer.extensions.setBottomInset
 import com.squidink.xkcdviewer.extensions.setTopInset
 import com.squidink.xkcdviewer.extensions.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,7 +37,7 @@ class SearchFragment: Fragment() {
     @Inject lateinit var picasso: Picasso
     @Inject lateinit var googleApiDataSource: GoogleSearchApiDataSource
 
-    private val viewModel: SearchViewModel by viewModels()
+    private val viewModel: SearchViewModel by activityViewModels()
     lateinit var adapter: SearchAdapter
     private lateinit var recycler: RecyclerView
 

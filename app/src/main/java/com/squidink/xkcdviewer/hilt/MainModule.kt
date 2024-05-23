@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.squareup.picasso.Picasso
-import com.squidink.xkcdviewer.R
-import com.squidink.xkcdviewer.Secrets
 import com.squidink.xkcdviewer.data.GoogleSearchApiDataSource
 import com.squidink.xkcdviewer.data.SettingsDataSource
 import com.squidink.xkcdviewer.data.XkcdApiDataSource
@@ -20,9 +18,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
-import dagger.hilt.android.components.FragmentComponent
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton

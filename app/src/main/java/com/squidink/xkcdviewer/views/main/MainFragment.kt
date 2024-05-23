@@ -2,19 +2,14 @@ package com.squidink.xkcdviewer.views.main
 
 import android.animation.ObjectAnimator
 import android.content.Intent
-import android.graphics.Insets
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.MarginLayoutParams
 import android.view.animation.LinearInterpolator
 import android.widget.Toast
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updateLayoutParams
-import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -40,7 +35,7 @@ class MainFragment: Fragment() {
     @Inject lateinit var picasso : Picasso
 
     private val viewModel: MainViewModel by viewModels()
-    private val searchViewModel : SearchViewModel by viewModels()
+    private val searchViewModel : SearchViewModel by activityViewModels()
     private lateinit var navController: NavController
 
     private val picassoCallback = object : com.squareup.picasso.Callback {
@@ -89,8 +84,10 @@ class MainFragment: Fragment() {
 
         // Configure SearchViewModel provides data when a search result is selected in SearchFragment.
         searchViewModel.uiState.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            SearchParseUtils.getComicNumberFromUrl(it.selectedResult?.link)?.let { number ->
-                viewModel.loadSpecific(number)
+            it.selectedResult?.let {selectedResult ->
+                SearchParseUtils.getComicNumberFromUrl(selectedResult.link)?.let { number ->
+                    viewModel.loadSpecific(number)
+                }
             }
         })
 

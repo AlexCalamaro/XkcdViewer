@@ -13,9 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.squidink.xkcdviewer.BuildConfig
 import com.squidink.xkcdviewer.R
 import com.squidink.xkcdviewer.databinding.FragmentSettingsBinding
-import com.squidink.xkcdviewer.extensions.setBottomInset
 import com.squidink.xkcdviewer.extensions.setTopInset
-import com.squidink.xkcdviewer.views.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
