@@ -26,4 +26,10 @@
     <string name="notification_title">New XKCD Alert!</string>
     <string name="notification_worker_name">check_latest_worker</string>
 
+    <!-- Content Descriptions -->
+    <string name="search_bar_cd">Search bar</string>
+    <string name="search_results_cd">Search results</string>
+    <string name="notification_toggle_cd">Notification toggle</string>
+    <string name="dark_mode_toggle_cd">Dark mode toggle</string>
+
 </resources>

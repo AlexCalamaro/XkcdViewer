@@ -68,7 +68,8 @@
                         android:id="@+id/notifications_toggle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"/>
+                        android:layout_weight="2"
+                        android:contentDescription="@string/notification_toggle_cd"/>
                 </LinearLayout>
 
                 <View
@@ -101,7 +102,8 @@
                         android:id="@+id/dark_mode_toggle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"/>
+                        android:layout_weight="2"
+                        android:contentDescription="@string/dark_mode_toggle_cd"/>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -139,6 +141,7 @@
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
                     android:padding="8dp"
                     android:gravity="center_vertical"
                     android:background="@drawable/rectangle_black_border_thin"
