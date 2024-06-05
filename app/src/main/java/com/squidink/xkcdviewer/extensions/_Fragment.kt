@@ -54,7 +54,10 @@ internal fun Fragment.setTopInset(view: View) {
             insets = i.getInsets(WindowInsetsCompat.Type.systemBars())
         }
         view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-            topMargin = insets?.top ?: i.systemWindowInsetTop
+            topMargin = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+                insets?.top ?: i.systemGestureInsets.top
+            else
+                i.systemWindowInsetTop
         }
         i
     }
@@ -67,7 +70,10 @@ internal fun Fragment.setBottomInset(view: View) {
             insets = i.getInsets(WindowInsetsCompat.Type.systemBars())
         }
         view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-            bottomMargin = insets?.bottom ?: i.systemWindowInsetBottom
+            bottomMargin = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+                insets?.bottom ?: i.systemGestureInsets.bottom
+            else
+                i.systemWindowInsetBottom
         }
         i
     }

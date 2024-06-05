@@ -40,8 +40,10 @@ class MainFragment: Fragment() {
 
     private val picassoCallback = object : com.squareup.picasso.Callback {
         override fun onSuccess() {
-            binding?.xkcdImage?.setZoom(0.9f)
-            showLoading(false)
+            if(_binding != null) {
+                binding.xkcdImage.setZoom(0.9f)
+                showLoading(false)
+            }
         }
 
         override fun onError(e: Exception?) {

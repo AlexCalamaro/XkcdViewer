@@ -11,6 +11,8 @@
     <string name="donation_url">https://paypal.me/acappdev?country.x=US&amp;locale.x=en_US</string>
     <string name="search_prompt">Enter a query in the search bar above</string>
     <string name="build_version">Version name: %1$s\nVersion code: %2$d</string>
+    <string name="search_bar_hint">Search</string>
+
 
     <!-- Error strings -->
     <string name="error_title">Something went wrong :(</string>
@@ -27,7 +29,6 @@
     <string name="notification_worker_name">check_latest_worker</string>
 
     <!-- Content Descriptions -->
-    <string name="search_bar_cd">Search bar</string>
     <string name="search_results_cd">Search results</string>
     <string name="notification_toggle_cd">Notification toggle</string>
     <string name="dark_mode_toggle_cd">Dark mode toggle</string>
