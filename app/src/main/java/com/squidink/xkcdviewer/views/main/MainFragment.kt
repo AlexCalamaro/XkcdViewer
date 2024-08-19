@@ -20,6 +20,7 @@ import com.squidink.xkcdviewer.extensions.setBottomInset
 import com.squidink.xkcdviewer.extensions.setTopInset
 import com.squidink.xkcdviewer.extensions.showContentDialog
 import com.squidink.xkcdviewer.extensions.showErrorDialog
+import com.squidink.xkcdviewer.extensions.spinForever
 import com.squidink.xkcdviewer.utils.ImageUtils
 import com.squidink.xkcdviewer.utils.SearchParseUtils
 import com.squidink.xkcdviewer.views.search.SearchViewModel
@@ -113,6 +114,10 @@ class MainFragment: Fragment() {
                         createShareIntent()
                         true
                     }
+                    R.id.menuoption_whatif -> {
+                        navController.navigate(R.id.action_mainFragment_to_whatIfFragment)
+                        true
+                    }
                     else -> false
                 }
             }
@@ -181,15 +186,7 @@ class MainFragment: Fragment() {
         binding?.let {binding ->
             if(isLoading) {
                 binding.loadingImage.visibility = View.VISIBLE
-                ObjectAnimator
-                    .ofFloat(binding.loadingImage, "rotation", 0f, 360f)
-                    .apply {
-                        duration = 1000
-                        repeatCount = ObjectAnimator.INFINITE
-                        repeatMode = ObjectAnimator.RESTART
-                        interpolator = LinearInterpolator()
-                        start()
-                    }
+                binding.loadingImage.spinForever()
             } else {
                 binding.loadingImage.visibility = View.GONE
             }

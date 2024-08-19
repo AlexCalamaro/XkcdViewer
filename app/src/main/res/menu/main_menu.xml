@@ -9,8 +9,12 @@
         android:icon="@drawable/icon_settings"
         android:title="Settings"
         app:showAsAction="ifRoom"/>
+    <item android:id="@+id/menuoption_whatif"
+        android:icon="@drawable/icon_question_mark"
+        android:title="what if? (beta) "
+        app:showAsAction="never"/>
     <item android:id="@+id/menuoption_share"
         android:icon="@drawable/icon_share"
-        android:title="Share"
-        app:showAsAction="ifRoom"/>
+        android:title="Share this comic"
+        app:showAsAction="never"/>
 </menu>

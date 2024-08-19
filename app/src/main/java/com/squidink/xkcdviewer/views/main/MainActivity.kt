@@ -1,8 +1,8 @@
 package com.squidink.xkcdviewer.views.main
 
-import android.animation.ObjectAnimator
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.Menu
 import androidx.activity.addCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +19,7 @@ import com.squidink.xkcdviewer.R
 import com.squidink.xkcdviewer.data.SettingsDataSource
 import com.squidink.xkcdviewer.databinding.ActivityMainBinding
 import com.squidink.xkcdviewer.extensions.showErrorDialog
+import com.squidink.xkcdviewer.extensions.showOptionalIcons
 import com.squidink.xkcdviewer.notifications.XkcdNotificationPermissions
 import com.squidink.xkcdviewer.notifications.workmanager.CheckLatestWorker
 import com.squidink.xkcdviewer.views.search.SearchFragment
@@ -37,7 +38,6 @@ class MainActivity : AppCompatActivity(){
 
     private var binding: ActivityMainBinding? = null
     private lateinit var navController: NavController
-    private var animator: ObjectAnimator? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -131,5 +131,12 @@ class MainActivity : AppCompatActivity(){
     private fun cancelWorker() {
         val workManager = WorkManager.getInstance(applicationContext)
         workManager.cancelUniqueWork(getString(R.string.notification_worker_name))
+    }
+
+    // Inflate the menu and show optional icons in dropdown
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        menu?.showOptionalIcons()
+        return true
     }
 }
