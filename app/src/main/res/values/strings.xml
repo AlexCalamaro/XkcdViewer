@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">xkcd</string>
+    <string name="app_name">xkcd+</string>
     <string name="show_alt_text">Long-press to show alt-text</string>
     <string name="alt_text">Alt text</string>
     <string name="alt_text_error">Sorry, we\'re unable to load alt-text for this image.</string>

@@ -27,6 +27,7 @@ class WhatIfWebViewClient(
                 for (var i=0, n=divNames.length; i<n; i++) {
                    document.getElementById(divNames[i]).remove();
                 }
+                document.querySelector('footer').remove();
                 document.getElementById("entry-wrapper").style.marginTop='1em';
                 document.body.style.background='white';
             } cleanPage();
@@ -35,18 +36,17 @@ class WhatIfWebViewClient(
     }
 
     override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
-//        request.url.toString().let {
-//            if(it.matches(Regex("https://what-if.xkcd.com/\\d+"))) {
-//                return false
-//            } else if(it == "https://what-if.xkcd.com/archive") {
-//                return false
-//            } else {
-//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
-//                view.context.startActivity(intent)
-//                return true
-//            }
-//        }
-        return false
+        request.url.toString().let {
+            if(it.matches(Regex("https://what-if.xkcd.com/\\d+/?"))) {
+                return false
+            } else if(it.matches(Regex("https://what-if.xkcd.com/archive/?"))) {
+                return false
+            } else {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
+                view.context.startActivity(intent)
+                return true
+            }
+        }
     }
 
     private fun showLoading() {
