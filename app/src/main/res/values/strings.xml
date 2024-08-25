@@ -32,8 +32,6 @@
     <string name="search_results_cd">Search results</string>
     <string name="notification_toggle_cd">Notification toggle</string>
     <string name="dark_mode_toggle_cd">Dark mode toggle</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- What-If Resources -->
     <string name="what_if_url">https://what-if.xkcd.com</string>
