@@ -2,12 +2,12 @@ package com.squidink.xkcdviewer.views.whatif
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.squidink.xkcdviewer.R
 import com.squidink.xkcdviewer.databinding.FragmentWhatIfBinding

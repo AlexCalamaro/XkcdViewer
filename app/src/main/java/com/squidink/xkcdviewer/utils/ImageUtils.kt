@@ -14,6 +14,7 @@ import com.squareup.picasso.Transformation
 
 class ImageUtils {
     companion object {
+        const val PADDING_PIXELS = 8
 
         /**
          * Implementation of Transformation interface in Picasso
@@ -28,6 +29,23 @@ class ImageUtils {
             }
             override fun key(): String {
                 return "invert"
+            }
+        }
+
+        class BitmapPaddingTransformation(private val padding: Int) : Transformation {
+            override fun transform(source: Bitmap?): Bitmap {
+                val result = Bitmap.createBitmap(
+                    source!!.width + padding*2,
+                    source.height + padding*4,
+                    Bitmap.Config.ARGB_8888
+                )
+                val canvas = Canvas(result)
+                canvas.drawBitmap(source, padding.toFloat(), padding.toFloat()*2, null)
+                source.recycle()
+                return result
+            }
+            override fun key(): String {
+                return "padding"
             }
         }
 

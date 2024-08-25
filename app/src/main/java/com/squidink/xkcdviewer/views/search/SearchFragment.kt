@@ -97,7 +97,7 @@ class SearchFragment: Fragment() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding?.let {binding ->
+        binding?.let { binding ->
             if(isLoading) {
                 binding.loadingImage.visibility = View.VISIBLE
                 ObjectAnimator

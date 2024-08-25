@@ -7,7 +7,6 @@ import android.view.View
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import com.squidink.xkcdviewer.R
 import com.squidink.xkcdviewer.databinding.FragmentWhatIfBinding
 import com.squidink.xkcdviewer.extensions.spinForever
 

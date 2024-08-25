@@ -1,12 +1,14 @@
 package com.squidink.xkcdviewer.views.main
 
-import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Rect
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -14,14 +16,18 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.squareup.picasso.Picasso
+import com.squareup.picasso.Target
 import com.squidink.xkcdviewer.R
 import com.squidink.xkcdviewer.databinding.FragmentMainBinding
+import com.squidink.xkcdviewer.extensions.centerImageInRect
 import com.squidink.xkcdviewer.extensions.setBottomInset
 import com.squidink.xkcdviewer.extensions.setTopInset
 import com.squidink.xkcdviewer.extensions.showContentDialog
 import com.squidink.xkcdviewer.extensions.showErrorDialog
 import com.squidink.xkcdviewer.extensions.spinForever
 import com.squidink.xkcdviewer.utils.ImageUtils
+import com.squidink.xkcdviewer.utils.ImageUtils.Companion.BitmapPaddingTransformation
+import com.squidink.xkcdviewer.utils.ImageUtils.Companion.InversionTransformation
 import com.squidink.xkcdviewer.utils.SearchParseUtils
 import com.squidink.xkcdviewer.views.search.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,20 +42,28 @@ class MainFragment: Fragment() {
     @Inject lateinit var picasso : Picasso
 
     private val viewModel: MainViewModel by viewModels()
-    private val searchViewModel : SearchViewModel by activityViewModels()
+    private var prevUiState: MainUiModel? = null
+    private val searchViewModel: SearchViewModel by activityViewModels()
     private lateinit var navController: NavController
 
-    private val picassoCallback = object : com.squareup.picasso.Callback {
-        override fun onSuccess() {
+    private val picassoTarget = object: Target {
+        override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
             if(_binding != null) {
-                binding.xkcdImage.setZoom(0.9f)
+                val targetRect = Rect()
+                binding.freeSpaceReference.getGlobalVisibleRect(targetRect)
+                binding.xkcdImage.setImageBitmap(bitmap)
+                binding.xkcdImage.centerImageInRect(targetRect)
                 showLoading(false)
             }
         }
 
-        override fun onError(e: Exception?) {
+        override fun onBitmapFailed(e: java.lang.Exception?, errorDrawable: Drawable?) {
             showErrorDialog()
             showLoading(false)
+        }
+
+        override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+            showLoading(true)
         }
     }
 
@@ -68,10 +82,13 @@ class MainFragment: Fragment() {
         bindButtons()
         setInsets()
         configureMenu()
+        binding.xkcdImage.minZoom = 0.7f
 
         // Configure main ViewModel to observe UI state changes
         viewModel.uiState.observe(viewLifecycleOwner) {
             it?.let { uiModel ->
+                showLoading(uiModel.isLoading)
+
                 if(uiModel.isError) {
                     showErrorDialog()
                     showLoading(false)
@@ -80,8 +97,8 @@ class MainFragment: Fragment() {
                     setTitle(uiModel.title)
                     setNumber(uiModel.number.toString())
                     setImage(uiModel.imageUrl)
-                    showLoading(uiModel.isLoading)
                 }
+                prevUiState = uiModel
             }
         }
 
@@ -135,7 +152,6 @@ class MainFragment: Fragment() {
     private fun setImage(image: String) {
         binding.let {
             showLoading(true)
-            it.xkcdImage.minZoom = 0.7f
             context?.let { ctx ->
                 /**
                  * If night mode is enabled, apply a transformation to the image,
@@ -143,17 +159,19 @@ class MainFragment: Fragment() {
                  */
                 if(ImageUtils.isNightModeEnabled(ctx)) {
                     picasso.load(image)
-                        .transform(ImageUtils.Companion.InversionTransformation())
-                        .into(binding.xkcdImage, picassoCallback)
+                        .transform(BitmapPaddingTransformation(ImageUtils.PADDING_PIXELS))
+                        .transform(InversionTransformation())
+                        .into(picassoTarget)
                 } else {
                     picasso.load(image)
-                        .into(binding.xkcdImage, picassoCallback)
+                        .transform(BitmapPaddingTransformation(ImageUtils.PADDING_PIXELS))
+                        .into(picassoTarget)
                 }
             }
         }
     }
 
-    fun showToast(toastText: String) {
+    private fun showToast(toastText: String) {
         Toast.makeText(activity, toastText, Toast.LENGTH_SHORT).show()
     }
 
@@ -164,6 +182,7 @@ class MainFragment: Fragment() {
         )
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun bindButtons() {
         binding.buttonPrevious.setOnClickListener { viewModel.loadPrevious() }
         binding.buttonRandom.setOnClickListener { viewModel.loadRandom() }
@@ -171,11 +190,11 @@ class MainFragment: Fragment() {
         binding.buttonNext.setOnClickListener { viewModel.loadNext() }
 
         binding.xkcdImage.setOnClickListener {
-            Toast.makeText(context, getString(R.string.show_alt_text), Toast.LENGTH_SHORT).show()
+            showToast(getString(R.string.show_alt_text))
         }
         binding.xkcdImage.setOnLongClickListener {
             this.showContentDialog(
-                title = getString(R.string.alt_text),
+                title = viewModel.uiState.value?.title ?: getString(R.string.alt_text),
                 message = viewModel.uiState.value?.altText ?: getString(R.string.alt_text_error)
             )
             true
