@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.squidink.xkcdviewer.R
 import com.squidink.xkcdviewer.databinding.FragmentWhatIfBinding
+import com.squidink.xkcdviewer.extensions.getNavController
 import com.squidink.xkcdviewer.extensions.setBottomInset
 import com.squidink.xkcdviewer.extensions.setTopInset
 
@@ -55,14 +56,20 @@ class WhatIfFragment : Fragment() {
     private fun setButtons() {
         // Nav button always goes back
         binding?.whatIfToolbar?.setNavigationOnClickListener {
-            findNavController().navigateUp()
+            getNavController()?.navigateUp() ?: {
+                activity?.recreate()
+                getNavController()?.navigateUp()
+            }
         }
         // Back nav goes back in webview as far as it can
         requireActivity().onBackPressedDispatcher.addCallback {
             if (webView.canGoBack()) {
                 webView.goBack()
             } else {
-                findNavController().navigateUp()
+                getNavController()?.navigateUp() ?: {
+                    activity?.recreate()
+                    getNavController()?.navigateUp()
+                }
             }
         }
     }

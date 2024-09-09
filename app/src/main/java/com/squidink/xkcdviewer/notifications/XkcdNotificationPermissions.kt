@@ -11,7 +11,10 @@ object XkcdNotificationPermissions {
 
     const val PERMISSION_REQUEST_CODE = 12391
 
-    // Check if POST_NOTICIATION permission is granted
+    /**
+     * Check if POST_NOTICIATION permission is granted, request permissions if not granted
+     * @return true if granted, false otherwise
+     */
     fun checkRequestPermissions(activity: MainActivity): Boolean {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if(ActivityCompat.checkSelfPermission(activity, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
@@ -26,6 +29,10 @@ object XkcdNotificationPermissions {
         return true
     }
 
+    /**
+     * Check if POST_NOTICIATION permission is granted
+     * @return true if granted, false otherwise
+     */
     fun checkPermissions(context: Context): Boolean {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if(ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {

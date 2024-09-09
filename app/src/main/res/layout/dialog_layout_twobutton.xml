@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:textColor="@color/colorForeground"
         tools:text="TEST TEST TEST"
         android:layout_marginLeft="16dp"
         app:layout_constraintStart_toEndOf="@id/dialog_icon"
@@ -34,6 +35,7 @@
         android:id="@+id/dialog_body"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:textColor="@color/colorForeground"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,8 +46,19 @@
         android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:text="@string/error_button_text"
+        android:text="@string/button_text_ok"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_body"
+        android:background="@drawable/rectangle_black_border_thin"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/dialog_button_decline"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/button_text_dismiss"
+        app:layout_constraintEnd_toStartOf="@id/dialog_button_affirm"
         app:layout_constraintTop_toBottomOf="@id/dialog_body"
         android:background="@drawable/rectangle_black_border_thin"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

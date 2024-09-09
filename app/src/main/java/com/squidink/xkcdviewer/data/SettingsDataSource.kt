@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.squidink.xkcdviewer.views.settings.SettingsConstants
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -22,6 +23,7 @@ class SettingsDataSource @Inject constructor(private val context: Context) {
     private val notificationToggle = booleanPreferencesKey(SettingsConstants.NOTIFICATIONS_TOGGLE)
     private val darkModeImagesToggle = booleanPreferencesKey(SettingsConstants.DARK_MODE_TOGGLE)
     private val newestKnownXkcdNumber = intPreferencesKey(SettingsConstants.NEWEST_KNOWN_XKCD_NUMBER)
+    private val isFirstLaunch = booleanPreferencesKey(SettingsConstants.IS_FIRST_LAUNCH)
 
     fun getNotificationsToggleState(): Flow<Boolean> {
         return context.dataStore.data.map {
@@ -57,5 +59,17 @@ class SettingsDataSource @Inject constructor(private val context: Context) {
         context.dataStore.edit {
             it[newestKnownXkcdNumber] = number
         }
+    }
+
+    // Determines whether app has been previously launched
+    suspend fun getIsFirstAppLaunch(): Boolean {
+        val result = context.dataStore.data.firstOrNull()?.get(isFirstLaunch) ?: true
+
+        if(result) {
+            context.dataStore.edit {
+                it[isFirstLaunch] = false
+            }
+        }
+        return result
     }
 }

@@ -13,13 +13,17 @@
     <string name="build_version">Version name: %1$s\nVersion code: %2$d</string>
     <string name="search_bar_hint">Search</string>
 
+    <!-- Generic Dialog/Button Strings -->
+    <string name="button_text_ok">OK</string>
+    <string name="button_text_cancel">Cancel</string>
+    <string name="button_text_dismiss">Dismiss</string>
 
     <!-- Error strings -->
     <string name="error_title">Something went wrong :(</string>
     <string name="error_body">An error occurred fetching that content. Please try again later.</string>
     <string name="error_button_text">OK</string>
     <string name="notification_error_title">Unable to enable notifications</string>
-    <string name="notification_error_body">Notifications weren\'t turned on because the permission was denied. If it has been denied more than twice, you\'ll need to manually enable notifications in Android settings for this app.</string>
+    <string name="notification_error_body">Notifications for new xkcd releases weren\'t turned on because the permission was denied. If it has been denied more than twice, you\'ll need to manually enable notifications in Android settings for this app.</string>
 
     <!-- Notifications -->
     <string name="notification_channel_id">new_xkcd_alert</string>
@@ -27,6 +31,10 @@
     <string name="notification_channel_description">Receive notifications when a new XKCD is released</string>
     <string name="notification_title">New XKCD Alert!</string>
     <string name="notification_worker_name">check_latest_worker</string>
+    <string name="notification_prompt_title">Enable notifications?</string>
+    <string name="notification_prompt_body">We\'d love to keep you up-to-date when a new xkcd is released (approx. 3 per week)!</string>
+    <string name="notification_prompt_button_accept">Enable</string>
+    <string name="notification_prompt_button_decline">Skip</string>
 
     <!-- Content Descriptions -->
     <string name="search_results_cd">Search results</string>

@@ -82,7 +82,7 @@ class MainFragment: Fragment() {
         bindButtons()
         setInsets()
         configureMenu()
-        binding.xkcdImage.minZoom = 0.7f
+        initializeUi()
 
         // Configure main ViewModel to observe UI state changes
         viewModel.uiState.observe(viewLifecycleOwner) {
@@ -143,6 +143,11 @@ class MainFragment: Fragment() {
                 }
             }
         }
+    }
+
+    private fun initializeUi() {
+        binding.loadingImage.spinForever()
+        binding.xkcdImage.minZoom = 0.7f
     }
 
     private fun setTitle(title: String) {
@@ -209,7 +214,6 @@ class MainFragment: Fragment() {
         binding?.let {binding ->
             if(isLoading) {
                 binding.loadingImage.visibility = View.VISIBLE
-                binding.loadingImage.spinForever()
             } else {
                 binding.loadingImage.visibility = View.GONE
             }

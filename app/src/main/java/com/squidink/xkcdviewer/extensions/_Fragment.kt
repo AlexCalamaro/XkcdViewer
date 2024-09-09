@@ -8,8 +8,18 @@ import android.view.ViewGroup
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.squidink.xkcdviewer.R
-import com.squidink.xkcdviewer.databinding.DialogLayoutBinding
+import com.squidink.xkcdviewer.databinding.DialogLayoutSinglebuttonBinding
+
+internal fun Fragment.getNavController(): NavController? {
+    return try {
+        findNavController()
+    } catch (_: IllegalStateException) {
+        null
+    }
+}
 
 internal fun Fragment.showErrorDialog(
     title: String,
@@ -17,7 +27,7 @@ internal fun Fragment.showErrorDialog(
 ) {
     val context = requireContext()
     val builder = AlertDialog.Builder(context)
-    val dialogBinding = DialogLayoutBinding.inflate(layoutInflater)
+    val dialogBinding = DialogLayoutSinglebuttonBinding.inflate(layoutInflater)
 
     dialogBinding.dialogIcon.setImageResource(R.drawable.icon_error)
     dialogBinding.dialogTitle.text = title
@@ -35,7 +45,7 @@ internal fun Fragment.showContentDialog(
 ) {
     val context = requireContext()
     val builder = AlertDialog.Builder(context)
-    val dialogBinding = DialogLayoutBinding.inflate(layoutInflater)
+    val dialogBinding = DialogLayoutSinglebuttonBinding.inflate(layoutInflater)
 
     dialogBinding.dialogIcon.setImageResource(R.drawable.icon_label)
     dialogBinding.dialogTitle.text = title

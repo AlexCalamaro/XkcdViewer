@@ -19,6 +19,7 @@ import com.squidink.xkcdviewer.R
 import com.squidink.xkcdviewer.data.SettingsDataSource
 import com.squidink.xkcdviewer.databinding.ActivityMainBinding
 import com.squidink.xkcdviewer.extensions.showErrorDialog
+import com.squidink.xkcdviewer.extensions.showNotificationRequestDialog
 import com.squidink.xkcdviewer.extensions.showOptionalIcons
 import com.squidink.xkcdviewer.notifications.XkcdNotificationPermissions
 import com.squidink.xkcdviewer.notifications.workmanager.CheckLatestWorker
@@ -43,6 +44,8 @@ class MainActivity : AppCompatActivity(){
         enableEdgeToEdge()
         observeDarkMode()
         observeNotificationToggle()
+        checkHandleFirstLaunch()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
@@ -108,6 +111,16 @@ class MainActivity : AppCompatActivity(){
                 } else {
                     cancelWorker()
                 }
+            }
+        }
+    }
+
+    // Check for, and handle first time launch events
+    private fun checkHandleFirstLaunch() {
+        lifecycleScope.launch {
+            if(settingsDataSource.getIsFirstAppLaunch() &&
+                !XkcdNotificationPermissions.checkPermissions(this@MainActivity)) {
+                showNotificationRequestDialog(settingsDataSource)
             }
         }
     }
