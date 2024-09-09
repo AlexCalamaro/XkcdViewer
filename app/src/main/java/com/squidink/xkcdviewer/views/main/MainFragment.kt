@@ -94,9 +94,13 @@ class MainFragment: Fragment() {
                     showLoading(false)
                     return@observe
                 } else {
-                    setTitle(uiModel.title)
-                    setNumber(uiModel.number.toString())
-                    setImage(uiModel.imageUrl)
+                    if(prevUiState?.number != uiModel.number ||
+                        binding.xkcdImage.drawable == null) {
+
+                        setTitle(uiModel.title)
+                        setNumber(uiModel.number.toString())
+                        setImage(uiModel.imageUrl)
+                    }
                 }
                 prevUiState = uiModel
             }

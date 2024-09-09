@@ -2,6 +2,7 @@ package com.squidink.xkcdviewer.extensions
 
 import android.animation.ObjectAnimator
 import android.graphics.Rect
+import android.graphics.RectF
 import android.view.animation.LinearInterpolator
 import android.widget.ImageView
 import com.ortiz.touchview.TouchImageView
@@ -20,8 +21,12 @@ fun ImageView.spinForever() {
 }
 
 fun TouchImageView.centerImageInRect(targetRect: Rect) {
-    val imageRect = Rect()
-    getGlobalVisibleRect(imageRect)
+    resetZoom()
+
+    val imageRect = drawable.bounds
+    val boundsF = RectF(imageRect)
+    imageMatrix.mapRect(boundsF)
+    boundsF.round(imageRect)
 
     // Only operate if image is larger than targetRect
     if (imageRect.width() > targetRect.width() || imageRect.height() > targetRect.height()) {
